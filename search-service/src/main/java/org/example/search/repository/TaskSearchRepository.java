@@ -23,37 +23,13 @@ public interface TaskSearchRepository extends JpaRepository<Task, Long>, JpaSpec
 
     // Поиск по статусу
     List<Task> findByUserIdAndStatus(Long userId, TaskStatus status);
-    Page<Task> findByUserIdAndStatus(Long userId, TaskStatus status, Pageable pageable);
 
     // Поиск по приоритету
     List<Task> findByUserIdAndPriority(Long userId, Priority priority);
-    Page<Task> findByUserIdAndPriority(Long userId, Priority priority, Pageable pageable);
 
     // Поиск по ключевым словам в названии и описании
     @Query("SELECT t FROM Task t WHERE t.userId = :userId AND " +
             "(LOWER(t.title) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
             "LOWER(t.description) LIKE LOWER(CONCAT('%', :keyword, '%')))")
     List<Task> findByUserIdAndKeyword(@Param("userId") Long userId, @Param("keyword") String keyword);
-
-    @Query("SELECT t FROM Task t WHERE t.userId = :userId AND " +
-            "(LOWER(t.title) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
-            "LOWER(t.description) LIKE LOWER(CONCAT('%', :keyword, '%')))")
-    Page<Task> findByUserIdAndKeyword(@Param("userId") Long userId, @Param("keyword") String keyword, Pageable pageable);
-
-    // Поиск по дедлайну
-    List<Task> findByUserIdAndDeadlineBetween(Long userId, LocalDateTime start, LocalDateTime end);
-    List<Task> findByUserIdAndDeadlineBefore(Long userId, LocalDateTime deadline);
-    List<Task> findByUserIdAndDeadlineAfter(Long userId, LocalDateTime deadline);
-
-    // Комбинированный поиск
-    @Query("SELECT t FROM Task t WHERE t.userId = :userId AND " +
-            "(:status IS NULL OR t.status = :status) AND " +
-            "(:priority IS NULL OR t.priority = :priority) AND " +
-            "(:keyword IS NULL OR LOWER(t.title) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
-            "LOWER(t.description) LIKE LOWER(CONCAT('%', :keyword, '%')))")
-    Page<Task> findByAdvancedCriteria(@Param("userId") Long userId,
-                                      @Param("status") TaskStatus status,
-                                      @Param("priority") Priority priority,
-                                      @Param("keyword") String keyword,
-                                      Pageable pageable);
 }

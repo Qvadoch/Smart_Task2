@@ -55,6 +55,217 @@ interface SearchCriteria {
     size?: number;
 }
 
+// CSS-in-JS стили
+const styles = {
+    // Layout
+    container: {
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    },
+    authContainer: {
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        padding: '20px',
+    },
+    mainContainer: {
+        minHeight: '100vh',
+        background: '#f8fafc',
+    },
+    content: {
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '20px',
+    },
+
+    // Cards
+    card: {
+        background: 'white',
+        borderRadius: '16px',
+        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        border: '1px solid #e2e8f0',
+    },
+    authCard: {
+        background: 'white',
+        borderRadius: '20px',
+        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+        padding: '40px',
+        width: '100%',
+        maxWidth: '440px',
+    },
+    taskCard: {
+        background: 'white',
+        borderRadius: '12px',
+        boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+        border: '1px solid #e2e8f0',
+        padding: '20px',
+        transition: 'all 0.2s ease-in-out',
+        cursor: 'pointer',
+        ':hover': {
+            transform: 'translateY(-2px)',
+            boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+        },
+    },
+
+    // Typography
+    heading: {
+        fontSize: '2.5rem',
+        fontWeight: '800',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        backgroundClip: 'text',
+        WebkitBackgroundClip: 'text',
+        color: 'transparent',
+        marginBottom: '8px',
+    },
+    subheading: {
+        fontSize: '1.25rem',
+        fontWeight: '600',
+        color: '#374151',
+        marginBottom: '4px',
+    },
+    body: {
+        color: '#6b7280',
+        lineHeight: '1.6',
+    },
+
+    // Buttons
+    button: {
+        base: {
+            padding: '12px 24px',
+            borderRadius: '10px',
+            fontWeight: '600',
+            fontSize: '14px',
+            border: 'none',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease-in-out',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+        },
+        primary: {
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            color: 'white',
+            ':hover': {
+                transform: 'translateY(-1px)',
+                boxShadow: '0 10px 15px -3px rgba(102, 126, 234, 0.4)',
+            },
+        },
+        secondary: {
+            background: '#f1f5f9',
+            color: '#475569',
+            border: '1px solid #e2e8f0',
+            ':hover': {
+                background: '#e2e8f0',
+            },
+        },
+        success: {
+            background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+            color: 'white',
+            ':hover': {
+                transform: 'translateY(-1px)',
+                boxShadow: '0 10px 15px -3px rgba(16, 185, 129, 0.4)',
+            },
+        },
+        danger: {
+            background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+            color: 'white',
+            ':hover': {
+                transform: 'translateY(-1px)',
+                boxShadow: '0 10px 15px -3px rgba(239, 68, 68, 0.4)',
+            },
+        },
+        warning: {
+            background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+            color: 'white',
+            ':hover': {
+                transform: 'translateY(-1px)',
+                boxShadow: '0 10px 15px -3px rgba(245, 158, 11, 0.4)',
+            },
+        },
+        ghost: {
+            background: 'transparent',
+            color: '#667eea',
+            border: '1px solid #667eea',
+            ':hover': {
+                background: '#667eea',
+                color: 'white',
+            },
+        },
+    },
+
+    // Inputs
+    input: {
+        base: {
+            width: '100%',
+            padding: '12px 16px',
+            border: '2px solid #e2e8f0',
+            borderRadius: '10px',
+            fontSize: '14px',
+            transition: 'all 0.2s ease-in-out',
+            ':focus': {
+                outline: 'none',
+                borderColor: '#667eea',
+                boxShadow: '0 0 0 3px rgba(102, 126, 234, 0.1)',
+            },
+        },
+    },
+
+    // Badges
+    badge: {
+        base: {
+            padding: '6px 12px',
+            borderRadius: '20px',
+            fontSize: '12px',
+            fontWeight: '600',
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px',
+        },
+        status: {
+            TODO: { background: '#f3f4f6', color: '#374151', border: '1px solid #d1d5db' },
+            IN_PROGRESS: { background: '#dbeafe', color: '#1e40af', border: '1px solid #93c5fd' },
+            DONE: { background: '#d1fae5', color: '#065f46', border: '1px solid #6ee7b7' },
+            CANCELLED: { background: '#fee2e2', color: '#991b1b', border: '1px solid #fca5a5' },
+            OVERDUE: { background: '#ffedd5', color: '#9a3412', border: '1px solid #fdba74' },
+        },
+        priority: {
+            LOW: { background: '#d1fae5', color: '#065f46', border: '1px solid #6ee7b7' },
+            MEDIUM: { background: '#fef3c7', color: '#92400e', border: '1px solid #fcd34d' },
+            HIGH: { background: '#fee2e2', color: '#991b1b', border: '1px solid #fca5a5' },
+            URGENT: { background: '#fecaca', color: '#7f1d1d', border: '1px solid #f87171' },
+        },
+    },
+
+    // Grid & Flex
+    grid: {
+        container: {
+            display: 'grid',
+            gap: '16px',
+        },
+        cols1: { gridTemplateColumns: '1fr' },
+        cols2: { gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' },
+    },
+    flex: {
+        center: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        between: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+        },
+        start: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+        },
+    },
+};
+
 const App: React.FC = () => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [token, setToken] = useState<string>('');
@@ -495,17 +706,6 @@ const App: React.FC = () => {
         });
     };
 
-    const getStatusColor = (status: Task['status']) => {
-        const colors = {
-            TODO: '#e5e7eb',
-            IN_PROGRESS: '#dbeafe',
-            DONE: '#d1fae5',
-            CANCELLED: '#fee2e2',
-            OVERDUE: '#ffedd5'
-        };
-        return colors[status];
-    };
-
     const getStatusText = (status: Task['status']) => {
         const texts = {
             TODO: 'К выполнению',
@@ -515,16 +715,6 @@ const App: React.FC = () => {
             OVERDUE: 'Просрочено'
         };
         return texts[status];
-    };
-
-    const getPriorityColor = (priority: Task['priority']) => {
-        const colors = {
-            LOW: '#10b981',
-            MEDIUM: '#f59e0b',
-            HIGH: '#ef4444',
-            URGENT: '#dc2626'
-        };
-        return colors[priority];
     };
 
     const getPriorityText = (priority: Task['priority']) => {
@@ -538,7 +728,13 @@ const App: React.FC = () => {
     };
 
     const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleString('ru-RU');
+        return new Date(dateString).toLocaleString('ru-RU', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
     };
 
     const handleSearch = () => {
@@ -563,69 +759,101 @@ const App: React.FC = () => {
 
     if (!currentUser) {
         return (
-            <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', maxWidth: '400px', margin: '50px auto' }}>
-                <h1>🎯 Менеджер задач</h1>
-                <div style={{ border: '1px solid #e5e7eb', padding: '20px', borderRadius: '8px', backgroundColor: 'white' }}>
-                    <h2>{isLogin ? 'Вход в систему' : 'Регистрация'}</h2>
+            <div style={styles.authContainer}>
+                <div style={styles.authCard}>
+                    <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+                        <div style={{
+                            ...styles.heading,
+                            fontSize: '2rem',
+                            marginBottom: '8px'
+                        }}>
+                            🎯 TaskFlow
+                        </div>
+                        <p style={{ ...styles.body, color: '#6b7280' }}>
+                            {isLogin ? 'Войдите в свой аккаунт' : 'Создайте новый аккаунт'}
+                        </p>
+                    </div>
+
                     {registrationSuccess && (
-                        <div style={{ backgroundColor: '#d1fae5', color: '#065f46', padding: '10px', borderRadius: '6px', marginBottom: '15px' }}>
+                        <div style={{
+                            background: '#d1fae5',
+                            color: '#065f46',
+                            padding: '12px 16px',
+                            borderRadius: '10px',
+                            marginBottom: '20px',
+                            border: '1px solid #a7f3d0'
+                        }}>
                             ✅ Регистрация успешна! Теперь войдите в систему.
                         </div>
                     )}
+
                     {authError && (
-                        <div style={{ backgroundColor: '#fee2e2', color: '#dc2626', padding: '10px', borderRadius: '6px', marginBottom: '15px' }}>
+                        <div style={{
+                            background: '#fee2e2',
+                            color: '#dc2626',
+                            padding: '12px 16px',
+                            borderRadius: '10px',
+                            marginBottom: '20px',
+                            border: '1px solid #fecaca'
+                        }}>
                             {authError}
                         </div>
                     )}
+
                     <form onSubmit={handleAuth}>
                         {!isLogin && (
-                            <div style={{ marginBottom: '15px' }}>
-                                <label style={{ display: 'block', marginBottom: '5px' }}>Имя пользователя</label>
+                            <div style={{ marginBottom: '20px' }}>
+                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
+                                    Имя пользователя
+                                </label>
                                 <input
                                     type="text"
                                     value={authForm.username}
                                     onChange={(e) => setAuthForm({ ...authForm, username: e.target.value })}
-                                    style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
+                                    style={styles.input.base}
                                     required
                                 />
                             </div>
                         )}
-                        <div style={{ marginBottom: '15px' }}>
-                            <label style={{ display: 'block', marginBottom: '5px' }}>Email</label>
+
+                        <div style={{ marginBottom: '20px' }}>
+                            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
+                                Email
+                            </label>
                             <input
                                 type="email"
                                 value={authForm.email}
                                 onChange={(e) => setAuthForm({ ...authForm, email: e.target.value })}
-                                style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
+                                style={styles.input.base}
                                 required
                             />
                         </div>
-                        <div style={{ marginBottom: '20px' }}>
-                            <label style={{ display: 'block', marginBottom: '5px' }}>Пароль</label>
+
+                        <div style={{ marginBottom: '24px' }}>
+                            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
+                                Пароль
+                            </label>
                             <input
                                 type="password"
                                 value={authForm.password}
                                 onChange={(e) => setAuthForm({ ...authForm, password: e.target.value })}
-                                style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
+                                style={styles.input.base}
                                 required
                             />
                         </div>
+
                         <button
                             type="submit"
                             style={{
+                                ...styles.button.base,
+                                ...styles.button.primary,
                                 width: '100%',
-                                padding: '12px',
-                                backgroundColor: '#3b82f6',
-                                color: 'white',
-                                border: 'none',
-                                borderRadius: '6px',
-                                cursor: 'pointer',
-                                fontSize: '16px',
-                                marginBottom: '15px'
+                                marginBottom: '16px'
                             }}
                         >
-                            {isLogin ? 'Войти' : 'Зарегистрироваться'}
+                            {isLogin ? '🔐 Войти' : '🚀 Зарегистрироваться'}
                         </button>
+
                         <button
                             type="button"
                             onClick={() => {
@@ -634,16 +862,12 @@ const App: React.FC = () => {
                                 setRegistrationSuccess(false);
                             }}
                             style={{
-                                width: '100%',
-                                padding: '10px',
-                                backgroundColor: 'transparent',
-                                color: '#3b82f6',
-                                border: '1px solid #3b82f6',
-                                borderRadius: '6px',
-                                cursor: 'pointer'
+                                ...styles.button.base,
+                                ...styles.button.ghost,
+                                width: '100%'
                             }}
                         >
-                            {isLogin ? 'Нет аккаунта? Зарегистрироваться' : 'Уже есть аккаунт? Войти'}
+                            {isLogin ? '📝 Нет аккаунта? Зарегистрироваться' : '🔐 Уже есть аккаунт? Войти'}
                         </button>
                     </form>
                 </div>
@@ -652,573 +876,405 @@ const App: React.FC = () => {
     }
 
     return (
-        <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', maxWidth: '1200px', margin: '0 auto' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                <div>
-                    <h1>🎯 Менеджер задач</h1>
-                    <p>Добро пожаловать, <strong>{currentUser.username}</strong>! ({currentUser.email})</p>
-                    <small style={{ color: '#6b7280' }}>JWT токен: {token.substring(0, 20)}...</small>
-                </div>
-                <button
-                    onClick={handleLogout}
-                    style={{
-                        padding: '8px 16px',
-                        backgroundColor: '#ef4444',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '6px',
-                        cursor: 'pointer'
-                    }}
-                >
-                    Выйти
-                </button>
-            </div>
-
-            {error && (
-                <div style={{ backgroundColor: '#fee2e2', color: '#dc2626', padding: '10px', borderRadius: '6px', marginBottom: '15px' }}>
-                    {error}
-                </div>
-            )}
-
-            <div style={{ marginBottom: '20px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                <button
-                    onClick={() => setShowTaskForm(true)}
-                    style={{
-                        padding: '10px 20px',
-                        backgroundColor: '#10b981',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '6px',
-                        cursor: 'pointer'
-                    }}
-                >
-                    + Создать задачу
-                </button>
-
-                <button
-                    onClick={fetchTasks}
-                    disabled={loading}
-                    style={{
-                        padding: '10px 20px',
-                        backgroundColor: '#3b82f6',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '6px',
-                        cursor: loading ? 'not-allowed' : 'pointer'
-                    }}
-                >
-                    {loading ? 'Загрузка...' : 'Все задачи'}
-                </button>
-
-                <button
-                    onClick={handleSyncTasks}
-                    disabled={loading}
-                    style={{
-                        padding: '10px 20px',
-                        backgroundColor: '#10b981',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '6px',
-                        cursor: loading ? 'not-allowed' : 'pointer'
-                    }}
-                >
-                    🔄 Синхронизировать
-                </button>
-            </div>
-
-            <div style={{ marginBottom: '20px', padding: '15px', border: '1px solid #e5e7eb', borderRadius: '6px', backgroundColor: '#f9fafb' }}>
-                <h4 style={{ margin: '0 0 15px 0' }}>🔍 Поиск задач</h4>
-                <div style={{ marginBottom: '15px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                    <button
-                        onClick={() => setSearchType('ALL')}
-                        style={{
-                            padding: '8px 16px',
-                            backgroundColor: searchType === 'ALL' ? '#3b82f6' : '#e5e7eb',
-                            color: searchType === 'ALL' ? 'white' : '#374151',
-                            border: 'none',
-                            borderRadius: '6px',
-                            cursor: 'pointer'
-                        }}
-                    >
-                        Все задачи
-                    </button>
-                    <button
-                        onClick={() => setSearchType('STATUS')}
-                        style={{
-                            padding: '8px 16px',
-                            backgroundColor: searchType === 'STATUS' ? '#8b5cf6' : '#e5e7eb',
-                            color: searchType === 'STATUS' ? 'white' : '#374151',
-                            border: 'none',
-                            borderRadius: '6px',
-                            cursor: 'pointer'
-                        }}
-                    >
-                        По статусу
-                    </button>
-                    <button
-                        onClick={() => setSearchType('PRIORITY')}
-                        style={{
-                            padding: '8px 16px',
-                            backgroundColor: searchType === 'PRIORITY' ? '#f59e0b' : '#e5e7eb',
-                            color: searchType === 'PRIORITY' ? 'white' : '#374151',
-                            border: 'none',
-                            borderRadius: '6px',
-                            cursor: 'pointer'
-                        }}
-                    >
-                        По приоритету
-                    </button>
-                    <button
-                        onClick={() => setSearchType('KEYWORD')}
-                        style={{
-                            padding: '8px 16px',
-                            backgroundColor: searchType === 'KEYWORD' ? '#10b981' : '#e5e7eb',
-                            color: searchType === 'KEYWORD' ? 'white' : '#374151',
-                            border: 'none',
-                            borderRadius: '6px',
-                            cursor: 'pointer'
-                        }}
-                    >
-                        По ключевому слову
-                    </button>
-                    <button
-                        onClick={() => setSearchType('ADVANCED')}
-                        style={{
-                            padding: '8px 16px',
-                            backgroundColor: searchType === 'ADVANCED' ? '#ec4899' : '#e5e7eb',
-                            color: searchType === 'ADVANCED' ? 'white' : '#374151',
-                            border: 'none',
-                            borderRadius: '6px',
-                            cursor: 'pointer'
-                        }}
-                    >
-                        Расширенный поиск
-                    </button>
-                </div>
-
-                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', alignItems: 'end' }}>
-                    {searchType === 'STATUS' && (
+        <div style={styles.mainContainer}>
+            {/* Header */}
+            <header style={{
+                background: 'white',
+                borderBottom: '1px solid #e2e8f0',
+                padding: '16px 0'
+            }}>
+                <div style={styles.content}>
+                    <div style={styles.flex.between}>
                         <div>
-                            <label style={{ display: 'block', marginBottom: '5px', fontSize: '14px' }}>Статус</label>
-                            <select
-                                value={searchStatus}
-                                onChange={(e) => setSearchStatus(e.target.value)}
-                                style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px', minWidth: '150px' }}
+                            <h1 style={{ ...styles.heading, margin: 0 }}>🎯 TaskFlow</h1>
+                            <p style={{ ...styles.body, margin: 0 }}>
+                                Добро пожаловать, <strong>{currentUser.username}</strong>! 👋
+                            </p>
+                        </div>
+                        <div style={{ ...styles.flex.start, gap: '12px' }}>
+                            <span style={{
+                                background: '#f1f5f9',
+                                padding: '6px 12px',
+                                borderRadius: '20px',
+                                fontSize: '12px',
+                                color: '#64748b'
+                            }}>
+                                {currentUser.email}
+                            </span>
+                            <button
+                                onClick={handleLogout}
+                                style={{
+                                    ...styles.button.base,
+                                    ...styles.button.danger,
+                                    padding: '8px 16px'
+                                }}
                             >
-                                <option value="">Выберите статус</option>
+                                🚪 Выйти
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div style={styles.content}>
+                {/* Alerts */}
+                {error && (
+                    <div style={{
+                        background: '#fee2e2',
+                        color: '#dc2626',
+                        padding: '16px',
+                        borderRadius: '12px',
+                        marginBottom: '24px',
+                        border: '1px solid #fecaca'
+                    }}>
+                        {error}
+                    </div>
+                )}
+
+                {/* Action Buttons */}
+                <div style={{ ...styles.card, padding: '24px', marginBottom: '24px' }}>
+                    <div style={{ ...styles.flex.start, gap: '12px', flexWrap: 'wrap' }}>
+                        <button
+                            onClick={() => setShowTaskForm(true)}
+                            style={{
+                                ...styles.button.base,
+                                ...styles.button.success
+                            }}
+                        >
+                            ➕ Создать задачу
+                        </button>
+
+                        <button
+                            onClick={fetchTasks}
+                            disabled={loading}
+                            style={{
+                                ...styles.button.base,
+                                ...styles.button.primary,
+                                opacity: loading ? 0.6 : 1
+                            }}
+                        >
+                            {loading ? '⏳ Загрузка...' : '📋 Все задачи'}
+                        </button>
+
+                        <button
+                            onClick={handleSyncTasks}
+                            disabled={loading}
+                            style={{
+                                ...styles.button.base,
+                                ...styles.button.secondary
+                            }}
+                        >
+                            🔄 Синхронизировать
+                        </button>
+                    </div>
+                </div>
+
+                {/* Search Panel */}
+                <div style={{ ...styles.card, padding: '24px', marginBottom: '24px' }}>
+                    <h3 style={{ ...styles.subheading, marginBottom: '20px' }}>🔍 Поиск задач</h3>
+
+                    {/* Search Type Tabs */}
+                    <div style={{ marginBottom: '20px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                        {([
+                            { key: 'ALL', label: 'Все задачи', emoji: '📋' },
+                            { key: 'STATUS', label: 'По статусу', emoji: '🏷️' },
+                            { key: 'PRIORITY', label: 'По приоритету', emoji: '⚡' },
+                            { key: 'KEYWORD', label: 'По ключевому слову', emoji: '🔤' },
+                            { key: 'ADVANCED', label: 'Расширенный поиск', emoji: '🎯' }
+                        ] as const).map(({ key, label, emoji }) => (
+                            <button
+                                key={key}
+                                onClick={() => setSearchType(key)}
+                                style={{
+                                    padding: '10px 16px',
+                                    borderRadius: '10px',
+                                    border: 'none',
+                                    background: searchType === key ?
+                                        'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : '#f8fafc',
+                                    color: searchType === key ? 'white' : '#64748b',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s ease',
+                                    fontWeight: '500',
+                                    fontSize: '14px'
+                                }}
+                            >
+                                {emoji} {label}
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* Search Inputs */}
+                    <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'end' }}>
+                        {searchType === 'STATUS' && (
+                            <div style={{ minWidth: '200px' }}>
+                                <label style={{ display: 'block', marginBottom: '6px', fontWeight: '600', color: '#374151' }}>
+                                    Статус
+                                </label>
+                                <select
+                                    value={searchStatus}
+                                    onChange={(e) => setSearchStatus(e.target.value)}
+                                    style={styles.input.base}
+                                >
+                                    <option value="">Выберите статус</option>
+                                    <option value="TODO">К выполнению</option>
+                                    <option value="IN_PROGRESS">В процессе</option>
+                                    <option value="DONE">Завершено</option>
+                                    <option value="CANCELLED">Отменено</option>
+                                    <option value="OVERDUE">Просрочено</option>
+                                </select>
+                            </div>
+                        )}
+
+                        {searchType === 'PRIORITY' && (
+                            <div style={{ minWidth: '200px' }}>
+                                <label style={{ display: 'block', marginBottom: '6px', fontWeight: '600', color: '#374151' }}>
+                                    Приоритет
+                                </label>
+                                <select
+                                    value={searchPriority}
+                                    onChange={(e) => setSearchPriority(e.target.value)}
+                                    style={styles.input.base}
+                                >
+                                    <option value="">Выберите приоритет</option>
+                                    <option value="LOW">Низкий</option>
+                                    <option value="MEDIUM">Средний</option>
+                                    <option value="HIGH">Высокий</option>
+                                    <option value="URGENT">Срочный</option>
+                                </select>
+                            </div>
+                        )}
+
+                        {searchType === 'KEYWORD' && (
+                            <div style={{ minWidth: '300px' }}>
+                                <label style={{ display: 'block', marginBottom: '6px', fontWeight: '600', color: '#374151' }}>
+                                    Ключевое слово
+                                </label>
+                                <input
+                                    type="text"
+                                    placeholder="Введите ключевое слово..."
+                                    value={searchKeyword}
+                                    onChange={(e) => setSearchKeyword(e.target.value)}
+                                    style={styles.input.base}
+                                />
+                            </div>
+                        )}
+
+                        {searchType === 'ADVANCED' && (
+                            <>
+                                <div>
+                                    <label style={{ display: 'block', marginBottom: '6px', fontWeight: '600', color: '#374151' }}>
+                                        Ключевое слово
+                                    </label>
+                                    <input
+                                        type="text"
+                                        placeholder="Название или описание..."
+                                        value={searchKeyword}
+                                        onChange={(e) => setSearchKeyword(e.target.value)}
+                                        style={styles.input.base}
+                                    />
+                                </div>
+                                <div>
+                                    <label style={{ display: 'block', marginBottom: '6px', fontWeight: '600', color: '#374151' }}>
+                                        Статус
+                                    </label>
+                                    <select
+                                        value={searchStatus}
+                                        onChange={(e) => setSearchStatus(e.target.value)}
+                                        style={styles.input.base}
+                                    >
+                                        <option value="">Любой статус</option>
+                                        <option value="TODO">К выполнению</option>
+                                        <option value="IN_PROGRESS">В процессе</option>
+                                        <option value="DONE">Завершено</option>
+                                        <option value="CANCELLED">Отменено</option>
+                                        <option value="OVERDUE">Просрочено</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style={{ display: 'block', marginBottom: '6px', fontWeight: '600', color: '#374151' }}>
+                                        Приоритет
+                                    </label>
+                                    <select
+                                        value={searchPriority}
+                                        onChange={(e) => setSearchPriority(e.target.value)}
+                                        style={styles.input.base}
+                                    >
+                                        <option value="">Любой приоритет</option>
+                                        <option value="LOW">Низкий</option>
+                                        <option value="MEDIUM">Средний</option>
+                                        <option value="HIGH">Высокий</option>
+                                        <option value="URGENT">Срочный</option>
+                                    </select>
+                                </div>
+                            </>
+                        )}
+
+                        {(searchType === 'STATUS' || searchType === 'PRIORITY' || searchType === 'KEYWORD' || searchType === 'ADVANCED') && (
+                            <button
+                                onClick={handleSearch}
+                                disabled={loading}
+                                style={{
+                                    ...styles.button.base,
+                                    ...styles.button.primary,
+                                    opacity: loading ? 0.6 : 1
+                                }}
+                            >
+                                {loading ? '⏳ Поиск...' : '🔍 Найти'}
+                            </button>
+                        )}
+
+                        {searchType !== 'ALL' && (
+                            <button
+                                onClick={() => {
+                                    setSearchKeyword('');
+                                    setSearchStatus('');
+                                    setSearchPriority('');
+                                    setSearchType('ALL');
+                                    fetchTasks();
+                                }}
+                                style={{
+                                    ...styles.button.base,
+                                    ...styles.button.secondary
+                                }}
+                            >
+                                🗑️ Сбросить
+                            </button>
+                        )}
+                    </div>
+                </div>
+
+                {/* Tasks Section */}
+                <div>
+                    <div style={{ ...styles.flex.between, marginBottom: '20px' }}>
+                        <h3 style={{ ...styles.subheading, margin: 0 }}>
+                            Задачи ({filteredTasks.length})
+                        </h3>
+
+                        {/* Quick Filters */}
+                        <div style={{ ...styles.flex.start, gap: '12px' }}>
+                            <select
+                                value={statusFilter}
+                                onChange={(e) => setStatusFilter(e.target.value)}
+                                style={{ ...styles.input.base, width: 'auto' }}
+                            >
+                                <option value="ALL">Все статусы</option>
                                 <option value="TODO">К выполнению</option>
                                 <option value="IN_PROGRESS">В процессе</option>
                                 <option value="DONE">Завершено</option>
                                 <option value="CANCELLED">Отменено</option>
                                 <option value="OVERDUE">Просрочено</option>
                             </select>
-                        </div>
-                    )}
 
-                    {searchType === 'PRIORITY' && (
-                        <div>
-                            <label style={{ display: 'block', marginBottom: '5px', fontSize: '14px' }}>Приоритет</label>
                             <select
-                                value={searchPriority}
-                                onChange={(e) => setSearchPriority(e.target.value)}
-                                style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px', minWidth: '150px' }}
+                                value={priorityFilter}
+                                onChange={(e) => setPriorityFilter(e.target.value)}
+                                style={{ ...styles.input.base, width: 'auto' }}
                             >
-                                <option value="">Выберите приоритет</option>
+                                <option value="ALL">Все приоритеты</option>
                                 <option value="LOW">Низкий</option>
                                 <option value="MEDIUM">Средний</option>
                                 <option value="HIGH">Высокий</option>
                                 <option value="URGENT">Срочный</option>
                             </select>
                         </div>
-                    )}
+                    </div>
 
-                    {searchType === 'KEYWORD' && (
-                        <div>
-                            <label style={{ display: 'block', marginBottom: '5px', fontSize: '14px' }}>Ключевое слово</label>
-                            <input
-                                type="text"
-                                placeholder="Введите ключевое слово..."
-                                value={searchKeyword}
-                                onChange={(e) => setSearchKeyword(e.target.value)}
-                                style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px', width: '250px' }}
-                            />
+                    {loading ? (
+                        <div style={{ ...styles.flex.center, padding: '60px' }}>
+                            <div style={{ textAlign: 'center' }}>
+                                <div style={{ fontSize: '48px', marginBottom: '16px' }}>⏳</div>
+                                <p style={styles.body}>Загрузка задач...</p>
+                            </div>
                         </div>
-                    )}
-
-                    {searchType === 'ADVANCED' && (
-                        <>
-                            <div>
-                                <label style={{ display: 'block', marginBottom: '5px', fontSize: '14px' }}>Ключевое слово</label>
-                                <input
-                                    type="text"
-                                    placeholder="Название или описание..."
-                                    value={searchKeyword}
-                                    onChange={(e) => setSearchKeyword(e.target.value)}
-                                    style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px', width: '200px' }}
-                                />
+                    ) : filteredTasks.length === 0 ? (
+                        <div style={{ ...styles.flex.center, padding: '60px' }}>
+                            <div style={{ textAlign: 'center' }}>
+                                <div style={{ fontSize: '48px', marginBottom: '16px' }}>📝</div>
+                                <h4 style={{ ...styles.subheading, marginBottom: '8px' }}>Задачи не найдены</h4>
+                                <p style={styles.body}>Создайте первую задачу или измените параметры поиска</p>
                             </div>
-                            <div>
-                                <label style={{ display: 'block', marginBottom: '5px', fontSize: '14px' }}>Статус</label>
-                                <select
-                                    value={searchStatus}
-                                    onChange={(e) => setSearchStatus(e.target.value)}
-                                    style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
-                                >
-                                    <option value="">Любой статус</option>
-                                    <option value="TODO">К выполнению</option>
-                                    <option value="IN_PROGRESS">В процессе</option>
-                                    <option value="DONE">Завершено</option>
-                                    <option value="CANCELLED">Отменено</option>
-                                    <option value="OVERDUE">Просрочено</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label style={{ display: 'block', marginBottom: '5px', fontSize: '14px' }}>Приоритет</label>
-                                <select
-                                    value={searchPriority}
-                                    onChange={(e) => setSearchPriority(e.target.value)}
-                                    style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
-                                >
-                                    <option value="">Любой приоритет</option>
-                                    <option value="LOW">Низкий</option>
-                                    <option value="MEDIUM">Средний</option>
-                                    <option value="HIGH">Высокий</option>
-                                    <option value="URGENT">Срочный</option>
-                                </select>
-                            </div>
-                        </>
-                    )}
-
-                    {(searchType === 'STATUS' || searchType === 'PRIORITY' || searchType === 'KEYWORD' || searchType === 'ADVANCED') && (
-                        <button
-                            onClick={handleSearch}
-                            disabled={loading ||
-                                (searchType === 'STATUS' && !searchStatus) ||
-                                (searchType === 'PRIORITY' && !searchPriority) ||
-                                (searchType === 'KEYWORD' && !searchKeyword.trim())
-                            }
-                            style={{
-                                padding: '8px 16px',
-                                backgroundColor: loading ? '#9ca3af' : '#8b5cf6',
-                                color: 'white',
-                                border: 'none',
-                                borderRadius: '6px',
-                                cursor: loading ? 'not-allowed' : 'pointer'
-                            }}
-                        >
-                            {loading ? 'Поиск...' : 'Найти'}
-                        </button>
-                    )}
-
-                    {searchType !== 'ALL' && (
-                        <button
-                            onClick={() => {
-                                setSearchKeyword('');
-                                setSearchStatus('');
-                                setSearchPriority('');
-                                setSearchType('ALL');
-                                fetchTasks();
-                            }}
-                            style={{
-                                padding: '8px 16px',
-                                backgroundColor: '#6b7280',
-                                color: 'white',
-                                border: 'none',
-                                borderRadius: '6px',
-                                cursor: 'pointer'
-                            }}
-                        >
-                            Сбросить
-                        </button>
-                    )}
-                </div>
-            </div>
-
-            {showTaskForm && (
-                <div style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    backgroundColor: 'rgba(0,0,0,0.5)',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    zIndex: 1000
-                }}>
-                    <div style={{
-                        backgroundColor: 'white',
-                        padding: '20px',
-                        borderRadius: '8px',
-                        width: '90%',
-                        maxWidth: '500px'
-                    }}>
-                        <h3>Создать новую задачу</h3>
-                        <form onSubmit={handleCreateTask}>
-                            <div style={{ marginBottom: '15px' }}>
-                                <label style={{ display: 'block', marginBottom: '5px' }}>Название *</label>
-                                <input
-                                    type="text"
-                                    value={taskForm.title}
-                                    onChange={(e) => setTaskForm({ ...taskForm, title: e.target.value })}
-                                    style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
-                                    required
-                                />
-                            </div>
-                            <div style={{ marginBottom: '15px' }}>
-                                <label style={{ display: 'block', marginBottom: '5px' }}>Описание</label>
-                                <textarea
-                                    value={taskForm.description}
-                                    onChange={(e) => setTaskForm({ ...taskForm, description: e.target.value })}
-                                    style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px', minHeight: '80px' }}
-                                />
-                            </div>
-                            <div style={{ marginBottom: '15px' }}>
-                                <label style={{ display: 'block', marginBottom: '5px' }}>Статус</label>
-                                <select
-                                    value={taskForm.status}
-                                    onChange={(e) => setTaskForm({ ...taskForm, status: e.target.value as Task['status'] })}
-                                    style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
-                                >
-                                    <option value="TODO">К выполнению</option>
-                                    <option value="IN_PROGRESS">В процессе</option>
-                                    <option value="DONE">Завершено</option>
-                                    <option value="CANCELLED">Отменено</option>
-                                    <option value="OVERDUE">Просрочено</option>
-                                </select>
-                            </div>
-                            <div style={{ marginBottom: '15px' }}>
-                                <label style={{ display: 'block', marginBottom: '5px' }}>Приоритет</label>
-                                <select
-                                    value={taskForm.priority}
-                                    onChange={(e) => setTaskForm({ ...taskForm, priority: e.target.value as Task['priority'] })}
-                                    style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
-                                >
-                                    <option value="LOW">Низкий</option>
-                                    <option value="MEDIUM">Средний</option>
-                                    <option value="HIGH">Высокий</option>
-                                    <option value="URGENT">Срочный</option>
-                                </select>
-                            </div>
-                            <div style={{ marginBottom: '20px' }}>
-                                <label style={{ display: 'block', marginBottom: '5px' }}>Дедлайн</label>
-                                <input
-                                    type="datetime-local"
-                                    value={taskForm.deadline}
-                                    onChange={(e) => setTaskForm({ ...taskForm, deadline: e.target.value })}
-                                    style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
-                                />
-                            </div>
-                            <div style={{ display: 'flex', gap: '10px' }}>
-                                <button
-                                    type="submit"
-                                    disabled={creatingTask}
-                                    style={{
-                                        padding: '10px 20px',
-                                        backgroundColor: creatingTask ? '#9ca3af' : '#10b981',
-                                        color: 'white',
-                                        border: 'none',
-                                        borderRadius: '6px',
-                                        cursor: creatingTask ? 'not-allowed' : 'pointer'
+                        </div>
+                    ) : (
+                        <div style={{ ...styles.grid.container, ...styles.grid.cols2 }}>
+                            {filteredTasks.map(task => (
+                                <div
+                                    key={task.id}
+                                    style={styles.taskCard}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.transform = 'translateY(-4px)';
+                                        e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.transform = 'translateY(0)';
+                                        e.currentTarget.style.boxShadow = '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)';
                                     }}
                                 >
-                                    {creatingTask ? 'Создание...' : 'Создать'}
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={() => setShowTaskForm(false)}
-                                    style={{
-                                        padding: '10px 20px',
-                                        backgroundColor: '#6b7280',
-                                        color: 'white',
-                                        border: 'none',
-                                        borderRadius: '6px',
-                                        cursor: 'pointer'
-                                    }}
-                                >
-                                    Отмена
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            )}
-
-            {editingTask && (
-                <div style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    backgroundColor: 'rgba(0,0,0,0.5)',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    zIndex: 1000
-                }}>
-                    <div style={{
-                        backgroundColor: 'white',
-                        padding: '20px',
-                        borderRadius: '8px',
-                        width: '90%',
-                        maxWidth: '500px'
-                    }}>
-                        <h3>Редактировать задачу</h3>
-                        <form onSubmit={handleUpdateTask}>
-                            <div style={{ marginBottom: '15px' }}>
-                                <label style={{ display: 'block', marginBottom: '5px' }}>Название *</label>
-                                <input
-                                    type="text"
-                                    value={editingTask.title}
-                                    onChange={(e) => setEditingTask({ ...editingTask, title: e.target.value })}
-                                    style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
-                                    required
-                                    disabled={updatingTask}
-                                />
-                            </div>
-                            <div style={{ marginBottom: '15px' }}>
-                                <label style={{ display: 'block', marginBottom: '5px' }}>Описание</label>
-                                <textarea
-                                    value={editingTask.description}
-                                    onChange={(e) => setEditingTask({ ...editingTask, description: e.target.value })}
-                                    style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px', minHeight: '80px' }}
-                                    disabled={updatingTask}
-                                />
-                            </div>
-                            <div style={{ marginBottom: '15px' }}>
-                                <label style={{ display: 'block', marginBottom: '5px' }}>Статус</label>
-                                <select
-                                    value={editingTask.status}
-                                    onChange={(e) => setEditingTask({ ...editingTask, status: e.target.value as Task['status'] })}
-                                    style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
-                                    disabled={updatingTask}
-                                >
-                                    <option value="TODO">К выполнению</option>
-                                    <option value="IN_PROGRESS">В процессе</option>
-                                    <option value="DONE">Завершено</option>
-                                    <option value="CANCELLED">Отменено</option>
-                                    <option value="OVERDUE">Просрочено</option>
-                                </select>
-                            </div>
-                            <div style={{ marginBottom: '15px' }}>
-                                <label style={{ display: 'block', marginBottom: '5px' }}>Приоритет</label>
-                                <select
-                                    value={editingTask.priority}
-                                    onChange={(e) => setEditingTask({ ...editingTask, priority: e.target.value as Task['priority'] })}
-                                    style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
-                                    disabled={updatingTask}
-                                >
-                                    <option value="LOW">Низкий</option>
-                                    <option value="MEDIUM">Средний</option>
-                                    <option value="HIGH">Высокий</option>
-                                    <option value="URGENT">Срочный</option>
-                                </select>
-                            </div>
-                            <div style={{ marginBottom: '20px' }}>
-                                <label style={{ display: 'block', marginBottom: '5px' }}>Дедлайн</label>
-                                <input
-                                    type="datetime-local"
-                                    value={editingTask.deadline}
-                                    onChange={(e) => setEditingTask({ ...editingTask, deadline: e.target.value })}
-                                    style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
-                                    disabled={updatingTask}
-                                />
-                            </div>
-                            <div style={{ display: 'flex', gap: '10px' }}>
-                                <button
-                                    type="submit"
-                                    disabled={updatingTask}
-                                    style={{
-                                        padding: '10px 20px',
-                                        backgroundColor: updatingTask ? '#9ca3af' : '#3b82f6',
-                                        color: 'white',
-                                        border: 'none',
-                                        borderRadius: '6px',
-                                        cursor: updatingTask ? 'not-allowed' : 'pointer'
-                                    }}
-                                >
-                                    {updatingTask ? 'Сохранение...' : 'Сохранить'}
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={() => setEditingTask(null)}
-                                    style={{
-                                        padding: '10px 20px',
-                                        backgroundColor: '#6b7280',
-                                        color: 'white',
-                                        border: 'none',
-                                        borderRadius: '6px',
-                                        cursor: 'pointer'
-                                    }}
-                                >
-                                    Отмена
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            )}
-
-            <div>
-                <h3>Задачи ({filteredTasks.length})</h3>
-                {loading ? (
-                    <p>Загрузка задач...</p>
-                ) : filteredTasks.length === 0 ? (
-                    <p>Задачи не найдены</p>
-                ) : (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                        {filteredTasks.map(task => (
-                            <div
-                                key={task.id}
-                                style={{
-                                    border: '1px solid #e5e7eb',
-                                    borderRadius: '8px',
-                                    padding: '15px',
-                                    backgroundColor: getStatusColor(task.status)
-                                }}
-                            >
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
-                                    <div style={{ flex: 1 }}>
-                                        <h4 style={{ margin: '0 0 5px 0' }}>{task.title}</h4>
+                                    <div style={{ marginBottom: '16px' }}>
+                                        <h4 style={{
+                                            margin: '0 0 8px 0',
+                                            fontSize: '18px',
+                                            fontWeight: '600',
+                                            color: '#1f2937'
+                                        }}>
+                                            {task.title}
+                                        </h4>
                                         {task.description && (
-                                            <p style={{ margin: '0 0 10px 0', color: '#6b7280' }}>{task.description}</p>
+                                            <p style={{
+                                                margin: 0,
+                                                color: '#6b7280',
+                                                fontSize: '14px',
+                                                lineHeight: '1.5'
+                                            }}>
+                                                {task.description}
+                                            </p>
                                         )}
-                                        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', fontSize: '14px' }}>
-                                            <span style={{
-                                                backgroundColor: getStatusColor(task.status),
-                                                color: '#374151',
-                                                padding: '4px 8px',
-                                                borderRadius: '4px',
-                                                border: '1px solid #9ca3af'
-                                            }}>
-                                                {getStatusText(task.status)}
-                                            </span>
-                                            <span style={{
-                                                backgroundColor: 'white',
-                                                color: getPriorityColor(task.priority),
-                                                padding: '4px 8px',
-                                                borderRadius: '4px',
-                                                border: `1px solid ${getPriorityColor(task.priority)}`
-                                            }}>
-                                                {getPriorityText(task.priority)}
-                                            </span>
-                                            {task.deadline && (
-                                                <span style={{ color: '#6b7280' }}>
-                                                    📅 {formatDate(task.deadline)}
-                                                </span>
-                                            )}
-                                            <span style={{ color: '#6b7280' }}>
-                                                Создано: {formatDate(task.createdAt)}
-                                            </span>
-                                        </div>
                                     </div>
-                                    <div style={{ display: 'flex', gap: '5px', flexDirection: 'column' }}>
+
+                                    <div style={{
+                                        display: 'flex',
+                                        gap: '8px',
+                                        flexWrap: 'wrap',
+                                        marginBottom: '16px'
+                                    }}>
+                                        <span>
+                                            {getStatusText(task.status)}
+                                        </span>
+                                        <span>
+                                            {getPriorityText(task.priority)}
+                                        </span>
+                                    </div>
+
+                                    <div style={{
+                                        display: 'flex',
+                                        gap: '12px',
+                                        color: '#6b7280',
+                                        fontSize: '12px',
+                                        marginBottom: '16px'
+                                    }}>
+                                        {task.deadline && (
+                                            <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                                📅 {formatDate(task.deadline)}
+                                            </span>
+                                        )}
+                                        <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                            🕐 {formatDate(task.createdAt)}
+                                        </span>
+                                    </div>
+
+                                    <div style={{
+                                        display: 'flex',
+                                        gap: '8px',
+                                        flexWrap: 'wrap'
+                                    }}>
                                         <select
                                             value={task.status}
                                             onChange={(e) => handleStatusChange(task.id, e.target.value)}
-                                            style={{ padding: '5px', fontSize: '12px' }}
+                                            style={{
+                                                ...styles.input.base,
+                                                padding: '6px 8px',
+                                                fontSize: '12px',
+                                                flex: '1'
+                                            }}
                                         >
                                             <option value="TODO">К выполнению</option>
                                             <option value="IN_PROGRESS">В процессе</option>
@@ -1226,39 +1282,41 @@ const App: React.FC = () => {
                                             <option value="CANCELLED">Отменено</option>
                                             <option value="OVERDUE">Просрочено</option>
                                         </select>
+
                                         <select
                                             value={task.priority}
                                             onChange={(e) => handlePriorityChange(task.id, e.target.value)}
-                                            style={{ padding: '5px', fontSize: '12px' }}
+                                            style={{
+                                                ...styles.input.base,
+                                                padding: '6px 8px',
+                                                fontSize: '12px',
+                                                flex: '1'
+                                            }}
                                         >
                                             <option value="LOW">Низкий</option>
                                             <option value="MEDIUM">Средний</option>
                                             <option value="HIGH">Высокий</option>
                                             <option value="URGENT">Срочный</option>
                                         </select>
+
                                         <button
                                             onClick={() => startEditTask(task)}
                                             style={{
-                                                padding: '5px 10px',
-                                                backgroundColor: '#f59e0b',
-                                                color: 'white',
-                                                border: 'none',
-                                                borderRadius: '4px',
-                                                cursor: 'pointer',
+                                                ...styles.button.base,
+                                                ...styles.button.warning,
+                                                padding: '6px 12px',
                                                 fontSize: '12px'
                                             }}
                                         >
                                             ✏️
                                         </button>
+
                                         <button
                                             onClick={() => handleDeleteTask(task.id)}
                                             style={{
-                                                padding: '5px 10px',
-                                                backgroundColor: '#ef4444',
-                                                color: 'white',
-                                                border: 'none',
-                                                borderRadius: '4px',
-                                                cursor: 'pointer',
+                                                ...styles.button.base,
+                                                ...styles.button.danger,
+                                                padding: '6px 12px',
                                                 fontSize: '12px'
                                             }}
                                         >
@@ -1266,11 +1324,294 @@ const App: React.FC = () => {
                                         </button>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
+                            ))}
+                        </div>
+                    )}
+                </div>
             </div>
+
+            {/* Create Task Modal */}
+            {showTaskForm && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'rgba(0, 0, 0, 0.5)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 1000,
+                    padding: '20px'
+                }}>
+                    <div style={{
+                        ...styles.card,
+                        width: '100%',
+                        maxWidth: '500px',
+                        maxHeight: '90vh',
+                        overflow: 'auto'
+                    }}>
+                        <div style={{ ...styles.flex.between, marginBottom: '24px' }}>
+                            <h3 style={{ ...styles.subheading, margin: 0 }}>Создать задачу</h3>
+                            <button
+                                onClick={() => setShowTaskForm(false)}
+                                style={{
+                                    background: 'none',
+                                    border: 'none',
+                                    fontSize: '20px',
+                                    cursor: 'pointer',
+                                    color: '#6b7280'
+                                }}
+                            >
+                                ✕
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleCreateTask}>
+                            <div style={{ marginBottom: '20px' }}>
+                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
+                                    Название *
+                                </label>
+                                <input
+                                    type="text"
+                                    value={taskForm.title}
+                                    onChange={(e) => setTaskForm({ ...taskForm, title: e.target.value })}
+                                    style={styles.input.base}
+                                    required
+                                    placeholder="Введите название задачи"
+                                />
+                            </div>
+
+                            <div style={{ marginBottom: '20px' }}>
+                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
+                                    Описание
+                                </label>
+                                <textarea
+                                    value={taskForm.description}
+                                    onChange={(e) => setTaskForm({ ...taskForm, description: e.target.value })}
+                                    style={{ ...styles.input.base, minHeight: '100px', resize: 'vertical' }}
+                                    placeholder="Опишите детали задачи"
+                                />
+                            </div>
+
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px' }}>
+                                <div>
+                                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
+                                        Статус
+                                    </label>
+                                    <select
+                                        value={taskForm.status}
+                                        onChange={(e) => setTaskForm({ ...taskForm, status: e.target.value as Task['status'] })}
+                                        style={styles.input.base}
+                                    >
+                                        <option value="TODO">К выполнению</option>
+                                        <option value="IN_PROGRESS">В процессе</option>
+                                        <option value="DONE">Завершено</option>
+                                        <option value="CANCELLED">Отменено</option>
+                                        <option value="OVERDUE">Просрочено</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
+                                        Приоритет
+                                    </label>
+                                    <select
+                                        value={taskForm.priority}
+                                        onChange={(e) => setTaskForm({ ...taskForm, priority: e.target.value as Task['priority'] })}
+                                        style={styles.input.base}
+                                    >
+                                        <option value="LOW">Низкий</option>
+                                        <option value="MEDIUM">Средний</option>
+                                        <option value="HIGH">Высокий</option>
+                                        <option value="URGENT">Срочный</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div style={{ marginBottom: '24px' }}>
+                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
+                                    Дедлайн
+                                </label>
+                                <input
+                                    type="datetime-local"
+                                    value={taskForm.deadline}
+                                    onChange={(e) => setTaskForm({ ...taskForm, deadline: e.target.value })}
+                                    style={styles.input.base}
+                                />
+                            </div>
+
+                            <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+                                <button
+                                    type="button"
+                                    onClick={() => setShowTaskForm(false)}
+                                    style={{
+                                        ...styles.button.base,
+                                        ...styles.button.secondary
+                                    }}
+                                >
+                                    Отмена
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={creatingTask}
+                                    style={{
+                                        ...styles.button.base,
+                                        ...styles.button.success,
+                                        opacity: creatingTask ? 0.6 : 1
+                                    }}
+                                >
+                                    {creatingTask ? '⏳ Создание...' : '✅ Создать'}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Edit Task Modal */}
+            {editingTask && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'rgba(0, 0, 0, 0.5)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 1000,
+                    padding: '20px'
+                }}>
+                    <div style={{
+                        ...styles.card,
+                        width: '100%',
+                        maxWidth: '500px',
+                        maxHeight: '90vh',
+                        overflow: 'auto'
+                    }}>
+                        <div style={{ ...styles.flex.between, marginBottom: '24px' }}>
+                            <h3 style={{ ...styles.subheading, margin: 0 }}>Редактировать задачу</h3>
+                            <button
+                                onClick={() => setEditingTask(null)}
+                                style={{
+                                    background: 'none',
+                                    border: 'none',
+                                    fontSize: '20px',
+                                    cursor: 'pointer',
+                                    color: '#6b7280'
+                                }}
+                            >
+                                ✕
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleUpdateTask}>
+                            <div style={{ marginBottom: '20px' }}>
+                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
+                                    Название *
+                                </label>
+                                <input
+                                    type="text"
+                                    value={editingTask.title}
+                                    onChange={(e) => setEditingTask({ ...editingTask, title: e.target.value })}
+                                    style={styles.input.base}
+                                    required
+                                    disabled={updatingTask}
+                                />
+                            </div>
+
+                            <div style={{ marginBottom: '20px' }}>
+                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
+                                    Описание
+                                </label>
+                                <textarea
+                                    value={editingTask.description}
+                                    onChange={(e) => setEditingTask({ ...editingTask, description: e.target.value })}
+                                    style={{ ...styles.input.base, minHeight: '100px', resize: 'vertical' }}
+                                    disabled={updatingTask}
+                                />
+                            </div>
+
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px' }}>
+                                <div>
+                                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
+                                        Статус
+                                    </label>
+                                    <select
+                                        value={editingTask.status}
+                                        onChange={(e) => setEditingTask({ ...editingTask, status: e.target.value as Task['status'] })}
+                                        style={styles.input.base}
+                                        disabled={updatingTask}
+                                    >
+                                        <option value="TODO">К выполнению</option>
+                                        <option value="IN_PROGRESS">В процессе</option>
+                                        <option value="DONE">Завершено</option>
+                                        <option value="CANCELLED">Отменено</option>
+                                        <option value="OVERDUE">Просрочено</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
+                                        Приоритет
+                                    </label>
+                                    <select
+                                        value={editingTask.priority}
+                                        onChange={(e) => setEditingTask({ ...editingTask, priority: e.target.value as Task['priority'] })}
+                                        style={styles.input.base}
+                                        disabled={updatingTask}
+                                    >
+                                        <option value="LOW">Низкий</option>
+                                        <option value="MEDIUM">Средний</option>
+                                        <option value="HIGH">Высокий</option>
+                                        <option value="URGENT">Срочный</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div style={{ marginBottom: '24px' }}>
+                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
+                                    Дедлайн
+                                </label>
+                                <input
+                                    type="datetime-local"
+                                    value={editingTask.deadline}
+                                    onChange={(e) => setEditingTask({ ...editingTask, deadline: e.target.value })}
+                                    style={styles.input.base}
+                                    disabled={updatingTask}
+                                />
+                            </div>
+
+                            <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+                                <button
+                                    type="button"
+                                    onClick={() => setEditingTask(null)}
+                                    style={{
+                                        ...styles.button.base,
+                                        ...styles.button.secondary
+                                    }}
+                                >
+                                    Отмена
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={updatingTask}
+                                    style={{
+                                        ...styles.button.base,
+                                        ...styles.button.primary,
+                                        opacity: updatingTask ? 0.6 : 1
+                                    }}
+                                >
+                                    {updatingTask ? '⏳ Сохранение...' : '💾 Сохранить'}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

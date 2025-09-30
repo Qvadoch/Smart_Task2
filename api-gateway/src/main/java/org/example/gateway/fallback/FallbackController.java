@@ -53,4 +53,19 @@ public class FallbackController {
                     .body(fallbackResponse);
         });
     }
+
+    @RequestMapping("/fallback/search-service")
+    public Mono<ResponseEntity<Map<String, Object>>> searchServiceFallback() {
+        return Mono.fromSupplier(() -> {
+            Map<String, Object> fallbackResponse = new HashMap<>();
+            fallbackResponse.put("status", "SERVICE_UNAVAILABLE");
+            fallbackResponse.put("message", "Search Service is temporarily unavailable. Please try again later.");
+            fallbackResponse.put("timestamp", LocalDateTime.now().toString());
+            fallbackResponse.put("service", "search-service");
+            fallbackResponse.put("suggestion", "Try using basic search filters or contact support");
+
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                    .body(fallbackResponse);
+        });
+    }
 }
