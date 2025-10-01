@@ -29,10 +29,6 @@ public class OpenApiConfig {
                                 - Валидация данных задач
                                 """)
                         .version("1.0.0")
-                        .contact(new Contact()
-                                .name("Smart-Task Team")
-                                .email("support@smart-task.com")
-                                .url("https://smart-task.com"))
                         .license(new License()
                                 .name("Apache 2.0")
                                 .url("https://www.apache.org/licenses/LICENSE-2.0.html")))

@@ -1,3 +1,4 @@
+// App.tsx
 import React, { useState, useEffect, FormEvent } from 'react';
 
 const API_BASE_URL = 'http://localhost:8099';
@@ -55,217 +56,6 @@ interface SearchCriteria {
     size?: number;
 }
 
-// CSS-in-JS стили
-const styles = {
-    // Layout
-    container: {
-        minHeight: '100vh',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-    },
-    authContainer: {
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        padding: '20px',
-    },
-    mainContainer: {
-        minHeight: '100vh',
-        background: '#f8fafc',
-    },
-    content: {
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '20px',
-    },
-
-    // Cards
-    card: {
-        background: 'white',
-        borderRadius: '16px',
-        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-        border: '1px solid #e2e8f0',
-    },
-    authCard: {
-        background: 'white',
-        borderRadius: '20px',
-        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-        padding: '40px',
-        width: '100%',
-        maxWidth: '440px',
-    },
-    taskCard: {
-        background: 'white',
-        borderRadius: '12px',
-        boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-        border: '1px solid #e2e8f0',
-        padding: '20px',
-        transition: 'all 0.2s ease-in-out',
-        cursor: 'pointer',
-        ':hover': {
-            transform: 'translateY(-2px)',
-            boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-        },
-    },
-
-    // Typography
-    heading: {
-        fontSize: '2.5rem',
-        fontWeight: '800',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        backgroundClip: 'text',
-        WebkitBackgroundClip: 'text',
-        color: 'transparent',
-        marginBottom: '8px',
-    },
-    subheading: {
-        fontSize: '1.25rem',
-        fontWeight: '600',
-        color: '#374151',
-        marginBottom: '4px',
-    },
-    body: {
-        color: '#6b7280',
-        lineHeight: '1.6',
-    },
-
-    // Buttons
-    button: {
-        base: {
-            padding: '12px 24px',
-            borderRadius: '10px',
-            fontWeight: '600',
-            fontSize: '14px',
-            border: 'none',
-            cursor: 'pointer',
-            transition: 'all 0.2s ease-in-out',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-        },
-        primary: {
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            color: 'white',
-            ':hover': {
-                transform: 'translateY(-1px)',
-                boxShadow: '0 10px 15px -3px rgba(102, 126, 234, 0.4)',
-            },
-        },
-        secondary: {
-            background: '#f1f5f9',
-            color: '#475569',
-            border: '1px solid #e2e8f0',
-            ':hover': {
-                background: '#e2e8f0',
-            },
-        },
-        success: {
-            background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-            color: 'white',
-            ':hover': {
-                transform: 'translateY(-1px)',
-                boxShadow: '0 10px 15px -3px rgba(16, 185, 129, 0.4)',
-            },
-        },
-        danger: {
-            background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
-            color: 'white',
-            ':hover': {
-                transform: 'translateY(-1px)',
-                boxShadow: '0 10px 15px -3px rgba(239, 68, 68, 0.4)',
-            },
-        },
-        warning: {
-            background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
-            color: 'white',
-            ':hover': {
-                transform: 'translateY(-1px)',
-                boxShadow: '0 10px 15px -3px rgba(245, 158, 11, 0.4)',
-            },
-        },
-        ghost: {
-            background: 'transparent',
-            color: '#667eea',
-            border: '1px solid #667eea',
-            ':hover': {
-                background: '#667eea',
-                color: 'white',
-            },
-        },
-    },
-
-    // Inputs
-    input: {
-        base: {
-            width: '100%',
-            padding: '12px 16px',
-            border: '2px solid #e2e8f0',
-            borderRadius: '10px',
-            fontSize: '14px',
-            transition: 'all 0.2s ease-in-out',
-            ':focus': {
-                outline: 'none',
-                borderColor: '#667eea',
-                boxShadow: '0 0 0 3px rgba(102, 126, 234, 0.1)',
-            },
-        },
-    },
-
-    // Badges
-    badge: {
-        base: {
-            padding: '6px 12px',
-            borderRadius: '20px',
-            fontSize: '12px',
-            fontWeight: '600',
-            textTransform: 'uppercase',
-            letterSpacing: '0.5px',
-        },
-        status: {
-            TODO: { background: '#f3f4f6', color: '#374151', border: '1px solid #d1d5db' },
-            IN_PROGRESS: { background: '#dbeafe', color: '#1e40af', border: '1px solid #93c5fd' },
-            DONE: { background: '#d1fae5', color: '#065f46', border: '1px solid #6ee7b7' },
-            CANCELLED: { background: '#fee2e2', color: '#991b1b', border: '1px solid #fca5a5' },
-            OVERDUE: { background: '#ffedd5', color: '#9a3412', border: '1px solid #fdba74' },
-        },
-        priority: {
-            LOW: { background: '#d1fae5', color: '#065f46', border: '1px solid #6ee7b7' },
-            MEDIUM: { background: '#fef3c7', color: '#92400e', border: '1px solid #fcd34d' },
-            HIGH: { background: '#fee2e2', color: '#991b1b', border: '1px solid #fca5a5' },
-            URGENT: { background: '#fecaca', color: '#7f1d1d', border: '1px solid #f87171' },
-        },
-    },
-
-    // Grid & Flex
-    grid: {
-        container: {
-            display: 'grid',
-            gap: '16px',
-        },
-        cols1: { gridTemplateColumns: '1fr' },
-        cols2: { gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' },
-    },
-    flex: {
-        center: {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-        },
-        between: {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-        },
-        start: {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-        },
-    },
-};
-
 const App: React.FC = () => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [token, setToken] = useState<string>('');
@@ -291,6 +81,7 @@ const App: React.FC = () => {
     const [searchStatus, setSearchStatus] = useState('');
     const [searchPriority, setSearchPriority] = useState('');
     const [searchType, setSearchType] = useState<'ALL' | 'STATUS' | 'PRIORITY' | 'KEYWORD' | 'ADVANCED'>('ALL');
+    const [serviceStatus, setServiceStatus] = useState<'ONLINE' | 'OFFLINE'>('ONLINE');
 
     const [taskForm, setTaskForm] = useState<TaskFormData>({
         title: '',
@@ -339,6 +130,18 @@ const App: React.FC = () => {
         };
     };
 
+    const handleServiceError = (error: any, serviceName: string) => {
+        console.error(`Service ${serviceName} error:`, error);
+        setServiceStatus('OFFLINE');
+        setError(`${serviceName} is temporarily unavailable. Please try again later.`);
+
+        // Автоматическое восстановление через 5 секунд
+        setTimeout(() => {
+            setServiceStatus('ONLINE');
+            setError('');
+        }, 5000);
+    };
+
     const handleAuth = async (e: FormEvent) => {
         e.preventDefault();
         setAuthError('');
@@ -348,11 +151,13 @@ const App: React.FC = () => {
             const body = isLogin
                 ? { email: authForm.email, password: authForm.password }
                 : { username: authForm.username, email: authForm.email, password: authForm.password };
+
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(body)
             });
+
             if (response.ok) {
                 const authData: AuthResponse = await response.json();
                 if (isLogin) {
@@ -369,13 +174,20 @@ const App: React.FC = () => {
                     setAuthForm({ ...authForm, password: '' });
                 }
             } else {
-                const errorData = await response.json();
-                setAuthError(errorData.message || 'Ошибка авторизации');
+                // Проверяем fallback response
+                if (response.status === 503) {
+                    const fallbackData = await response.json();
+                    setAuthError(`Service unavailable: ${fallbackData.message}`);
+                    handleServiceError(fallbackData, 'Authentication Service');
+                } else {
+                    const errorData = await response.json();
+                    setAuthError(errorData.message || 'Authentication error');
+                }
                 setRegistrationSuccess(false);
             }
         } catch (err) {
-            setAuthError('Ошибка подключения к серверу');
-            setRegistrationSuccess(false);
+            setAuthError('Connection error - service may be down');
+            handleServiceError(err, 'Authentication Service');
         }
     };
 
@@ -396,20 +208,29 @@ const App: React.FC = () => {
                 method: 'GET',
                 headers: getAuthHeaders(),
             });
+
             if (response.ok) {
                 const data = await response.json();
                 const tasksArray = Array.isArray(data) ? data : [];
                 setTasks(tasksArray);
                 setError('');
+                setServiceStatus('ONLINE');
+            } else if (response.status === 503) {
+                const fallbackData = await response.json();
+                setError(`Search service unavailable: ${fallbackData.message}`);
+                handleServiceError(fallbackData, 'Search Service');
+                setTasks([]);
             } else if (response.status === 401) {
-                setError('Ошибка авторизации. Пожалуйста, войдите снова.');
+                setError('Authorization error. Please log in again.');
                 handleLogout();
             } else {
                 const errorText = await response.text();
-                setError(`Ошибка загрузки задач: ${errorText}`);
+                setError(`Error loading tasks: ${errorText}`);
             }
         } catch (err) {
-            setError('Ошибка подключения к серверу');
+            setError('Connection error - search service may be down');
+            handleServiceError(err, 'Search Service');
+            setTasks([]);
         } finally {
             setLoading(false);
         }
@@ -424,16 +245,22 @@ const App: React.FC = () => {
                 `${API_BASE_URL}/api/search/user/${currentUser.id}/status?status=${searchStatus}`,
                 { method: 'GET', headers: getAuthHeaders() }
             );
+
             if (response.ok) {
                 const data = await response.json();
                 setTasks(Array.isArray(data) ? data : []);
                 setError('');
+            } else if (response.status === 503) {
+                const fallbackData = await response.json();
+                setError(`Search service unavailable: ${fallbackData.message}`);
+                handleServiceError(fallbackData, 'Search Service');
             } else {
                 const errorText = await response.text();
-                setError(`Ошибка поиска по статусу: ${errorText}`);
+                setError(`Status search error: ${errorText}`);
             }
         } catch (err) {
-            setError('Ошибка подключения при поиске по статусу');
+            setError('Connection error during status search');
+            handleServiceError(err, 'Search Service');
         } finally {
             setLoading(false);
         }
@@ -448,16 +275,22 @@ const App: React.FC = () => {
                 `${API_BASE_URL}/api/search/user/${currentUser.id}/priority?priority=${searchPriority}`,
                 { method: 'GET', headers: getAuthHeaders() }
             );
+
             if (response.ok) {
                 const data = await response.json();
                 setTasks(Array.isArray(data) ? data : []);
                 setError('');
+            } else if (response.status === 503) {
+                const fallbackData = await response.json();
+                setError(`Search service unavailable: ${fallbackData.message}`);
+                handleServiceError(fallbackData, 'Search Service');
             } else {
                 const errorText = await response.text();
-                setError(`Ошибка поиска по приоритету: ${errorText}`);
+                setError(`Priority search error: ${errorText}`);
             }
         } catch (err) {
-            setError('Ошибка подключения при поиске по приоритету');
+            setError('Connection error during priority search');
+            handleServiceError(err, 'Search Service');
         } finally {
             setLoading(false);
         }
@@ -472,16 +305,22 @@ const App: React.FC = () => {
                 `${API_BASE_URL}/api/search/user/${currentUser.id}/keyword?keyword=${encodeURIComponent(searchKeyword)}`,
                 { method: 'GET', headers: getAuthHeaders() }
             );
+
             if (response.ok) {
                 const data = await response.json();
                 setTasks(Array.isArray(data) ? data : []);
                 setError('');
+            } else if (response.status === 503) {
+                const fallbackData = await response.json();
+                setError(`Search service unavailable: ${fallbackData.message}`);
+                handleServiceError(fallbackData, 'Search Service');
             } else {
                 const errorText = await response.text();
-                setError(`Ошибка поиска по ключевому слову: ${errorText}`);
+                setError(`Keyword search error: ${errorText}`);
             }
         } catch (err) {
-            setError('Ошибка подключения при поиске по ключевому слову');
+            setError('Connection error during keyword search');
+            handleServiceError(err, 'Search Service');
         } finally {
             setLoading(false);
         }
@@ -500,21 +339,28 @@ const App: React.FC = () => {
                 page: 0,
                 size: 50
             };
+
             const response = await fetch(`${API_BASE_URL}/api/search/advanced`, {
                 method: 'POST',
                 headers: getAuthHeaders(),
                 body: JSON.stringify(searchCriteria)
             });
+
             if (response.ok) {
                 const result = await response.json();
                 setTasks(result.content || []);
                 setError('');
+            } else if (response.status === 503) {
+                const fallbackData = await response.json();
+                setError(`Search service unavailable: ${fallbackData.message}`);
+                handleServiceError(fallbackData, 'Search Service');
             } else {
                 const errorText = await response.text();
-                setError(`Ошибка расширенного поиска: ${errorText}`);
+                setError(`Advanced search error: ${errorText}`);
             }
         } catch (err) {
-            setError('Ошибка подключения при расширенном поиске');
+            setError('Connection error during advanced search');
+            handleServiceError(err, 'Search Service');
         } finally {
             setLoading(false);
         }
@@ -528,11 +374,17 @@ const App: React.FC = () => {
                 `${API_BASE_URL}/api/search/sync/${currentUser.id}`,
                 { method: 'POST', headers: getAuthHeaders() }
             );
+
             if (response.ok) {
                 await fetchTasks();
+            } else if (response.status === 503) {
+                const fallbackData = await response.json();
+                setError(`Sync service unavailable: ${fallbackData.message}`);
+                handleServiceError(fallbackData, 'Sync Service');
             }
         } catch (err) {
-            setError('Ошибка синхронизации');
+            setError('Sync error - service may be down');
+            handleServiceError(err, 'Sync Service');
         } finally {
             setLoading(false);
         }
@@ -542,7 +394,7 @@ const App: React.FC = () => {
         e.preventDefault();
         if (!currentUser || !token) return;
         if (!taskForm.title.trim()) {
-            setError('Название задачи обязательно');
+            setError('Task title is required');
             return;
         }
         setCreatingTask(true);
@@ -556,11 +408,13 @@ const App: React.FC = () => {
                 deadline: taskForm.deadline ? taskForm.deadline + ':00' : null,
                 userId: currentUser.id
             };
+
             const response = await fetch(`${API_BASE_URL}/api/tasks`, {
                 method: 'POST',
                 headers: getAuthHeaders(),
                 body: JSON.stringify(taskData)
             });
+
             if (response.ok) {
                 await handleSyncTasks();
                 setTaskForm({
@@ -573,15 +427,20 @@ const App: React.FC = () => {
                 });
                 setShowTaskForm(false);
                 setError('');
+            } else if (response.status === 503) {
+                const fallbackData = await response.json();
+                setError(`Task service unavailable: ${fallbackData.message}`);
+                handleServiceError(fallbackData, 'Task Service');
             } else if (response.status === 401) {
-                setError('Ошибка авторизации. Пожалуйста, войдите снова.');
+                setError('Authorization error. Please log in again.');
                 handleLogout();
             } else {
                 const errorText = await response.text();
-                setError(`Ошибка создания задачи: ${errorText}`);
+                setError(`Error creating task: ${errorText}`);
             }
         } catch (err) {
-            setError('Ошибка подключения при создании задачи');
+            setError('Connection error while creating task');
+            handleServiceError(err, 'Task Service');
         } finally {
             setCreatingTask(false);
         }
@@ -591,7 +450,7 @@ const App: React.FC = () => {
         e.preventDefault();
         if (!editingTask || !currentUser || !token) return;
         if (!editingTask.title.trim()) {
-            setError('Название задачи обязательно');
+            setError('Task title is required');
             return;
         }
         setUpdatingTask(true);
@@ -605,24 +464,31 @@ const App: React.FC = () => {
                 deadline: editingTask.deadline ? editingTask.deadline + ':00' : null,
                 userId: currentUser.id
             };
+
             const response = await fetch(`${API_BASE_URL}/api/tasks/${editingTask.id}?userId=${currentUser.id}`, {
                 method: 'PUT',
                 headers: getAuthHeaders(),
                 body: JSON.stringify(taskData)
             });
+
             if (response.ok) {
                 await handleSyncTasks();
                 setEditingTask(null);
                 setError('');
+            } else if (response.status === 503) {
+                const fallbackData = await response.json();
+                setError(`Task service unavailable: ${fallbackData.message}`);
+                handleServiceError(fallbackData, 'Task Service');
             } else if (response.status === 401) {
-                setError('Ошибка авторизации. Пожалуйста, войдите снова.');
+                setError('Authorization error. Please log in again.');
                 handleLogout();
             } else {
                 const errorText = await response.text();
-                setError(`Ошибка обновления задачи: ${errorText}`);
+                setError(`Error updating task: ${errorText}`);
             }
         } catch (err) {
-            setError('Ошибка подключения при обновлении задачи');
+            setError('Connection error while updating task');
+            handleServiceError(err, 'Task Service');
         } finally {
             setUpdatingTask(false);
         }
@@ -635,16 +501,22 @@ const App: React.FC = () => {
                 `${API_BASE_URL}/api/tasks/${taskId}/status?userId=${currentUser.id}&status=${newStatus}`,
                 { method: 'PATCH', headers: getAuthHeaders() }
             );
+
             if (response.ok) {
                 await handleSyncTasks();
+            } else if (response.status === 503) {
+                const fallbackData = await response.json();
+                setError(`Task service unavailable: ${fallbackData.message}`);
+                handleServiceError(fallbackData, 'Task Service');
             } else if (response.status === 401) {
-                setError('Ошибка авторизации. Пожалуйста, войдите снова.');
+                setError('Authorization error. Please log in again.');
                 handleLogout();
             } else {
-                setError('Ошибка изменения статуса');
+                setError('Error changing status');
             }
         } catch (err) {
-            setError('Ошибка изменения статуса');
+            setError('Error changing status');
+            handleServiceError(err, 'Task Service');
         }
     };
 
@@ -653,45 +525,59 @@ const App: React.FC = () => {
         try {
             const taskToUpdate = tasks.find(task => task.id === taskId);
             if (!taskToUpdate) return;
+
             const updatedTaskData = {
                 ...taskToUpdate,
                 priority: newPriority as Task['priority']
             };
+
             const response = await fetch(`${API_BASE_URL}/api/tasks/${taskId}?userId=${currentUser.id}`, {
                 method: 'PUT',
                 headers: getAuthHeaders(),
                 body: JSON.stringify(updatedTaskData)
             });
+
             if (response.ok) {
                 await handleSyncTasks();
+            } else if (response.status === 503) {
+                const fallbackData = await response.json();
+                setError(`Task service unavailable: ${fallbackData.message}`);
+                handleServiceError(fallbackData, 'Task Service');
             } else if (response.status === 401) {
-                setError('Ошибка авторизации. Пожалуйста, войдите снова.');
+                setError('Authorization error. Please log in again.');
                 handleLogout();
             } else {
-                setError('Ошибка изменения приоритета');
+                setError('Error changing priority');
             }
         } catch (err) {
-            setError('Ошибка изменения приоритета');
+            setError('Error changing priority');
+            handleServiceError(err, 'Task Service');
         }
     };
 
     const handleDeleteTask = async (taskId: number) => {
-        if (!currentUser || !token || !window.confirm('Удалить задачу?')) return;
+        if (!currentUser || !token || !window.confirm('Are you sure you want to delete this task?')) return;
         try {
             const response = await fetch(
                 `${API_BASE_URL}/api/tasks/${taskId}?userId=${currentUser.id}`,
                 { method: 'DELETE', headers: getAuthHeaders() }
             );
+
             if (response.ok) {
                 await handleSyncTasks();
+            } else if (response.status === 503) {
+                const fallbackData = await response.json();
+                setError(`Task service unavailable: ${fallbackData.message}`);
+                handleServiceError(fallbackData, 'Task Service');
             } else if (response.status === 401) {
-                setError('Ошибка авторизации. Пожалуйста, войдите снова.');
+                setError('Authorization error. Please log in again.');
                 handleLogout();
             } else {
-                setError('Ошибка удаления задачи');
+                setError('Error deleting task');
             }
         } catch (err) {
-            setError('Ошибка удаления задачи');
+            setError('Error deleting task');
+            handleServiceError(err, 'Task Service');
         }
     };
 
@@ -706,35 +592,61 @@ const App: React.FC = () => {
         });
     };
 
+    const getStatusColor = (status: Task['status']) => {
+        const colors = {
+            TODO: '#667eea',
+            IN_PROGRESS: '#f093fb',
+            DONE: '#4facfe',
+            CANCELLED: '#fd746c',
+            OVERDUE: '#ff6b6b'
+        };
+        return colors[status];
+    };
+
     const getStatusText = (status: Task['status']) => {
         const texts = {
-            TODO: 'К выполнению',
-            IN_PROGRESS: 'В процессе',
-            DONE: 'Завершено',
-            CANCELLED: 'Отменено',
-            OVERDUE: 'Просрочено'
+            TODO: 'To Do',
+            IN_PROGRESS: 'In Progress',
+            DONE: 'Done',
+            CANCELLED: 'Cancelled',
+            OVERDUE: 'Overdue'
         };
         return texts[status];
     };
 
+    const getPriorityColor = (priority: Task['priority']) => {
+        const colors = {
+            LOW: '#10b981',
+            MEDIUM: '#f59e0b',
+            HIGH: '#ef4444',
+            URGENT: '#dc2626'
+        };
+        return colors[priority];
+    };
+
     const getPriorityText = (priority: Task['priority']) => {
         const texts = {
-            LOW: 'Низкий',
-            MEDIUM: 'Средний',
-            HIGH: 'Высокий',
-            URGENT: 'Срочный'
+            LOW: 'Low',
+            MEDIUM: 'Medium',
+            HIGH: 'High',
+            URGENT: 'Urgent'
         };
         return texts[priority];
     };
 
     const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleString('ru-RU', {
+        return new Date(dateString).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'short',
             day: 'numeric',
             hour: '2-digit',
             minute: '2-digit'
         });
+    };
+
+    const isOverdue = (deadline: string | null) => {
+        if (!deadline) return false;
+        return new Date(deadline) < new Date();
     };
 
     const handleSearch = () => {
@@ -757,103 +669,216 @@ const App: React.FC = () => {
         }
     };
 
+    const resetSearch = () => {
+        setSearchKeyword('');
+        setSearchStatus('');
+        setSearchPriority('');
+        setSearchType('ALL');
+        fetchTasks();
+    };
+
+    // Статистика задач
+    const taskStats = {
+        total: tasks.length,
+        todo: tasks.filter(t => t.status === 'TODO').length,
+        inProgress: tasks.filter(t => t.status === 'IN_PROGRESS').length,
+        done: tasks.filter(t => t.status === 'DONE').length,
+        overdue: tasks.filter(t => t.status === 'OVERDUE').length,
+        cancelled: tasks.filter(t => t.status === 'CANCELLED').length
+    };
+
     if (!currentUser) {
         return (
-            <div style={styles.authContainer}>
-                <div style={styles.authCard}>
-                    <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-                        <div style={{
-                            ...styles.heading,
-                            fontSize: '2rem',
-                            marginBottom: '8px'
-                        }}>
-                            🎯 TaskFlow
-                        </div>
-                        <p style={{ ...styles.body, color: '#6b7280' }}>
-                            {isLogin ? 'Войдите в свой аккаунт' : 'Создайте новый аккаунт'}
-                        </p>
-                    </div>
+            <div className="auth-container">
+                <style>{`
+                    /* Стили остаются такими же как в предыдущей версии */
+                    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+                    
+                    * {
+                        margin: 0;
+                        padding: 0;
+                        box-sizing: border-box;
+                    }
+                    
+                    body {
+                        font-family: 'Inter', sans-serif;
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        min-height: 100vh;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                    
+                    .auth-container {
+                        width: 100%;
+                        max-width: 440px;
+                        padding: 20px;
+                    }
+                    
+                    .auth-card {
+                        background: rgba(255, 255, 255, 0.95);
+                        backdrop-filter: blur(20px);
+                        border-radius: 24px;
+                        padding: 40px;
+                        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+                        border: 1px solid rgba(255, 255, 255, 0.2);
+                    }
+                    
+                    .auth-title {
+                        text-align: center;
+                        font-size: 2.5rem;
+                        font-weight: 700;
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        margin-bottom: 10px;
+                    }
+                    
+                    .auth-subtitle {
+                        text-align: center;
+                        color: #6b7280;
+                        margin-bottom: 30px;
+                        font-weight: 500;
+                    }
+                    
+                    .auth-form-group {
+                        margin-bottom: 20px;
+                    }
+                    
+                    .auth-label {
+                        display: block;
+                        margin-bottom: 8px;
+                        font-weight: 500;
+                        color: #374151;
+                    }
+                    
+                    .auth-input {
+                        width: 100%;
+                        padding: 14px 16px;
+                        border: 2px solid #e5e7eb;
+                        border-radius: 12px;
+                        font-size: 16px;
+                        transition: all 0.3s ease;
+                        background: white;
+                    }
+                    
+                    .auth-input:focus {
+                        outline: none;
+                        border-color: #667eea;
+                        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+                        transform: translateY(-2px);
+                    }
+                    
+                    .auth-button {
+                        width: 100%;
+                        padding: 16px;
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        color: white;
+                        border: none;
+                        border-radius: 12px;
+                        font-size: 16px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        margin-bottom: 15px;
+                    }
+                    
+                    .auth-button:hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+                    }
+                    
+                    .auth-switch-button {
+                        width: 100%;
+                        padding: 14px;
+                        background: transparent;
+                        color: #667eea;
+                        border: 2px solid #667eea;
+                        border-radius: 12px;
+                        font-size: 16px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                    }
+                    
+                    .auth-switch-button:hover {
+                        background: #667eea;
+                        color: white;
+                        transform: translateY(-2px);
+                    }
+                    
+                    .alert-success {
+                        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+                        color: white;
+                        padding: 16px;
+                        border-radius: 12px;
+                        margin-bottom: 20px;
+                        text-align: center;
+                        font-weight: 500;
+                    }
+                    
+                    .alert-error {
+                        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+                        color: white;
+                        padding: 16px;
+                        border-radius: 12px;
+                        margin-bottom: 20px;
+                        text-align: center;
+                        font-weight: 500;
+                    }
+                `}</style>
+
+                <div className="auth-card">
+                    <h1 className="auth-title">TaskFlow</h1>
+                    <p className="auth-subtitle">{isLogin ? 'Sign in to your account' : 'Create new account'}</p>
 
                     {registrationSuccess && (
-                        <div style={{
-                            background: '#d1fae5',
-                            color: '#065f46',
-                            padding: '12px 16px',
-                            borderRadius: '10px',
-                            marginBottom: '20px',
-                            border: '1px solid #a7f3d0'
-                        }}>
-                            ✅ Регистрация успешна! Теперь войдите в систему.
+                        <div className="alert-success">
+                            Registration successful! Please sign in.
                         </div>
                     )}
-
                     {authError && (
-                        <div style={{
-                            background: '#fee2e2',
-                            color: '#dc2626',
-                            padding: '12px 16px',
-                            borderRadius: '10px',
-                            marginBottom: '20px',
-                            border: '1px solid #fecaca'
-                        }}>
+                        <div className="alert-error">
                             {authError}
                         </div>
                     )}
 
                     <form onSubmit={handleAuth}>
                         {!isLogin && (
-                            <div style={{ marginBottom: '20px' }}>
-                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
-                                    Имя пользователя
-                                </label>
+                            <div className="auth-form-group">
+                                <label className="auth-label">Username</label>
                                 <input
                                     type="text"
                                     value={authForm.username}
                                     onChange={(e) => setAuthForm({ ...authForm, username: e.target.value })}
-                                    style={styles.input.base}
+                                    className="auth-input"
                                     required
                                 />
                             </div>
                         )}
-
-                        <div style={{ marginBottom: '20px' }}>
-                            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
-                                Email
-                            </label>
+                        <div className="auth-form-group">
+                            <label className="auth-label">Email</label>
                             <input
                                 type="email"
                                 value={authForm.email}
                                 onChange={(e) => setAuthForm({ ...authForm, email: e.target.value })}
-                                style={styles.input.base}
+                                className="auth-input"
                                 required
                             />
                         </div>
-
-                        <div style={{ marginBottom: '24px' }}>
-                            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
-                                Пароль
-                            </label>
+                        <div className="auth-form-group">
+                            <label className="auth-label">Password</label>
                             <input
                                 type="password"
                                 value={authForm.password}
                                 onChange={(e) => setAuthForm({ ...authForm, password: e.target.value })}
-                                style={styles.input.base}
+                                className="auth-input"
                                 required
                             />
                         </div>
-
-                        <button
-                            type="submit"
-                            style={{
-                                ...styles.button.base,
-                                ...styles.button.primary,
-                                width: '100%',
-                                marginBottom: '16px'
-                            }}
-                        >
-                            {isLogin ? '🔐 Войти' : '🚀 Зарегистрироваться'}
+                        <button type="submit" className="auth-button">
+                            {isLogin ? 'Sign In' : 'Create Account'}
                         </button>
-
                         <button
                             type="button"
                             onClick={() => {
@@ -861,13 +886,9 @@ const App: React.FC = () => {
                                 setAuthError('');
                                 setRegistrationSuccess(false);
                             }}
-                            style={{
-                                ...styles.button.base,
-                                ...styles.button.ghost,
-                                width: '100%'
-                            }}
+                            className="auth-switch-button"
                         >
-                            {isLogin ? '📝 Нет аккаунта? Зарегистрироваться' : '🔐 Уже есть аккаунт? Войти'}
+                            {isLogin ? 'Need an account? Sign up' : 'Already have an account? Sign in'}
                         </button>
                     </form>
                 </div>
@@ -876,593 +897,869 @@ const App: React.FC = () => {
     }
 
     return (
-        <div style={styles.mainContainer}>
+        <div className="app-container">
+            <style>{`
+                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+                
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+                
+                body {
+                    font-family: 'Inter', sans-serif;
+                    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                    min-height: 100vh;
+                }
+                
+                .app-container {
+                    padding: 20px;
+                    max-width: 1400px;
+                    margin: 0 auto;
+                }
+                
+                .app-header {
+                    background: rgba(255, 255, 255, 0.95);
+                    backdrop-filter: blur(20px);
+                    border-radius: 20px;
+                    padding: 30px;
+                    margin-bottom: 30px;
+                    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                }
+                
+                .header-content {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    gap: 20px;
+                }
+                
+                .header-info h1 {
+                    font-size: 2.5rem;
+                    font-weight: 700;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    margin-bottom: 8px;
+                }
+                
+                .header-info p {
+                    color: #6b7280;
+                    font-size: 1.1rem;
+                    margin-bottom: 5px;
+                }
+                
+                .service-status {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    padding: 8px 16px;
+                    border-radius: 20px;
+                    font-size: 14px;
+                    font-weight: 500;
+                }
+                
+                .status-online {
+                    background: #10b981;
+                    color: white;
+                }
+                
+                .status-offline {
+                    background: #ef4444;
+                    color: white;
+                }
+                
+                .status-indicator {
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                    animation: pulse 2s infinite;
+                }
+                
+                @keyframes pulse {
+                    0% { opacity: 1; }
+                    50% { opacity: 0.5; }
+                    100% { opacity: 1; }
+                }
+                
+                .btn {
+                    padding: 12px 24px;
+                    border: none;
+                    border-radius: 12px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    font-size: 14px;
+                }
+                
+                .btn-primary {
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                }
+                
+                .btn-primary:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+                }
+                
+                .btn-success {
+                    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+                    color: white;
+                }
+                
+                .btn-success:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+                }
+                
+                .btn-danger {
+                    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+                    color: white;
+                }
+                
+                .btn-danger:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+                }
+                
+                .btn-secondary {
+                    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+                    color: white;
+                }
+                
+                .btn-secondary:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 10px 25px rgba(107, 114, 128, 0.3);
+                }
+                
+                .btn:disabled {
+                    opacity: 0.6;
+                    cursor: not-allowed;
+                    transform: none !important;
+                    box-shadow: none !important;
+                }
+                
+                .stats-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    gap: 20px;
+                    margin-bottom: 30px;
+                }
+                
+                .stat-card {
+                    background: rgba(255, 255, 255, 0.95);
+                    backdrop-filter: blur(20px);
+                    border-radius: 16px;
+                    padding: 25px;
+                    text-align: center;
+                    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    transition: all 0.3s ease;
+                }
+                
+                .stat-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+                }
+                
+                .stat-number {
+                    font-size: 2.5rem;
+                    font-weight: 700;
+                    margin-bottom: 8px;
+                }
+                
+                .stat-label {
+                    color: #6b7280;
+                    font-weight: 500;
+                    font-size: 0.9rem;
+                }
+                
+                .actions-grid {
+                    display: flex;
+                    gap: 15px;
+                    flex-wrap: wrap;
+                    margin-bottom: 30px;
+                }
+                
+                .search-panel {
+                    background: rgba(255, 255, 255, 0.95);
+                    backdrop-filter: blur(20px);
+                    border-radius: 20px;
+                    padding: 25px;
+                    margin-bottom: 30px;
+                    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                }
+                
+                .search-title {
+                    font-size: 1.3rem;
+                    font-weight: 600;
+                    margin-bottom: 20px;
+                    color: #374151;
+                }
+                
+                .search-tabs {
+                    display: flex;
+                    gap: 10px;
+                    flex-wrap: wrap;
+                    margin-bottom: 20px;
+                }
+                
+                .search-tab {
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 10px;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    background: #f3f4f6;
+                    color: #6b7280;
+                }
+                
+                .search-tab.active {
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                    transform: translateY(-2px);
+                    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+                }
+                
+                .search-controls {
+                    display: flex;
+                    gap: 15px;
+                    flex-wrap: wrap;
+                    align-items: end;
+                }
+                
+                .form-group {
+                    display: flex;
+                    flex-direction: column;
+                }
+                
+                .form-label {
+                    margin-bottom: 8px;
+                    font-weight: 500;
+                    color: #374151;
+                    font-size: 14px;
+                }
+                
+                .form-input, .form-select {
+                    padding: 12px;
+                    border: 2px solid #e5e7eb;
+                    border-radius: 10px;
+                    font-size: 14px;
+                    transition: all 0.3s ease;
+                    background: white;
+                    min-width: 150px;
+                }
+                
+                .form-input:focus, .form-select:focus {
+                    outline: none;
+                    border-color: #667eea;
+                    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+                }
+                
+                .tasks-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                    gap: 25px;
+                }
+                
+                .task-card {
+                    background: rgba(255, 255, 255, 0.95);
+                    backdrop-filter: blur(20px);
+                    border-radius: 20px;
+                    padding: 25px;
+                    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    transition: all 0.3s ease;
+                    position: relative;
+                    overflow: hidden;
+                }
+                
+                .task-card::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 6px;
+                    height: 100%;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                }
+                
+                .task-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+                }
+                
+                .task-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    margin-bottom: 15px;
+                }
+                
+                .task-title {
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                    color: #1f2937;
+                    margin-bottom: 8px;
+                    line-height: 1.4;
+                }
+                
+                .task-description {
+                    color: #6b7280;
+                    line-height: 1.5;
+                    margin-bottom: 20px;
+                }
+                
+                .task-meta {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                    margin-bottom: 20px;
+                }
+                
+                .task-meta-item {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    font-size: 14px;
+                }
+                
+                .status-badge, .priority-badge {
+                    padding: 6px 12px;
+                    border-radius: 20px;
+                    font-size: 12px;
+                    font-weight: 600;
+                    color: white;
+                }
+                
+                .deadline-warning {
+                    color: #ef4444;
+                    font-weight: 600;
+                }
+                
+                .task-actions {
+                    display: flex;
+                    gap: 10px;
+                    flex-wrap: wrap;
+                }
+                
+                .task-actions .btn {
+                    padding: 8px 16px;
+                    font-size: 12px;
+                }
+                
+                .empty-state {
+                    text-align: center;
+                    padding: 60px 20px;
+                    color: #6b7280;
+                }
+                
+                .empty-state h3 {
+                    font-size: 1.5rem;
+                    margin-bottom: 10px;
+                    color: #374151;
+                }
+                
+                .alert {
+                    padding: 16px;
+                    border-radius: 12px;
+                    margin-bottom: 20px;
+                    text-align: center;
+                    font-weight: 500;
+                }
+                
+                .alert-error {
+                    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+                    color: #dc2626;
+                    border: 1px solid #fecaca;
+                }
+                
+                .alert-warning {
+                    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+                    color: #d97706;
+                    border: 1px solid #fcd34d;
+                }
+                
+                .loading {
+                    text-align: center;
+                    padding: 40px;
+                    color: #6b7280;
+                    font-size: 1.1rem;
+                }
+                
+                .loading::after {
+                    content: '';
+                    display: inline-block;
+                    width: 20px;
+                    height: 20px;
+                    border: 2px solid #e5e7eb;
+                    border-top: 2px solid #667eea;
+                    border-radius: 50%;
+                    animation: spin 1s linear infinite;
+                    margin-left: 10px;
+                }
+                
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+                
+                .modal-overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                    backdrop-filter: blur(5px);
+                }
+                
+                .modal {
+                    background: white;
+                    padding: 30px;
+                    border-radius: 20px;
+                    width: 90%;
+                    max-width: 500px;
+                    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+                }
+                
+                .modal h3 {
+                    font-size: 1.5rem;
+                    margin-bottom: 20px;
+                    color: #374151;
+                    font-weight: 600;
+                }
+                
+                .modal-actions {
+                    display: flex;
+                    gap: 10px;
+                    justify-content: flex-end;
+                    margin-top: 25px;
+                }
+                
+                @media (max-width: 768px) {
+                    .app-container {
+                        padding: 15px;
+                    }
+                    
+                    .header-content {
+                        flex-direction: column;
+                        align-items: stretch;
+                    }
+                    
+                    .header-info h1 {
+                        font-size: 2rem;
+                    }
+                    
+                    .actions-grid {
+                        flex-direction: column;
+                    }
+                    
+                    .search-controls {
+                        flex-direction: column;
+                        align-items: stretch;
+                    }
+                    
+                    .tasks-grid {
+                        grid-template-columns: 1fr;
+                    }
+                    
+                    .modal {
+                        width: 95%;
+                        padding: 20px;
+                    }
+                }
+            `}</style>
+
             {/* Header */}
-            <header style={{
-                background: 'white',
-                borderBottom: '1px solid #e2e8f0',
-                padding: '16px 0'
-            }}>
-                <div style={styles.content}>
-                    <div style={styles.flex.between}>
-                        <div>
-                            <h1 style={{ ...styles.heading, margin: 0 }}>🎯 TaskFlow</h1>
-                            <p style={{ ...styles.body, margin: 0 }}>
-                                Добро пожаловать, <strong>{currentUser.username}</strong>! 👋
-                            </p>
+            <header className="app-header">
+                <div className="header-content">
+                    <div className="header-info">
+                        <h1>TaskFlow Dashboard</h1>
+                        <p>Welcome back, {currentUser.username}!</p>
+                        <div className={`service-status ${serviceStatus === 'ONLINE' ? 'status-online' : 'status-offline'}`}>
+                            <div className="status-indicator"></div>
+                            {serviceStatus === 'ONLINE' ? 'All Systems Operational' : 'Service Disruption'}
                         </div>
-                        <div style={{ ...styles.flex.start, gap: '12px' }}>
-                            <span style={{
-                                background: '#f1f5f9',
-                                padding: '6px 12px',
-                                borderRadius: '20px',
-                                fontSize: '12px',
-                                color: '#64748b'
-                            }}>
-                                {currentUser.email}
-                            </span>
-                            <button
-                                onClick={handleLogout}
-                                style={{
-                                    ...styles.button.base,
-                                    ...styles.button.danger,
-                                    padding: '8px 16px'
-                                }}
-                            >
-                                🚪 Выйти
-                            </button>
-                        </div>
+                    </div>
+                    <div className="header-actions">
+                        <button onClick={handleLogout} className="btn btn-danger">
+                            Sign Out
+                        </button>
                     </div>
                 </div>
             </header>
 
-            <div style={styles.content}>
-                {/* Alerts */}
-                {error && (
-                    <div style={{
-                        background: '#fee2e2',
-                        color: '#dc2626',
-                        padding: '16px',
-                        borderRadius: '12px',
-                        marginBottom: '24px',
-                        border: '1px solid #fecaca'
-                    }}>
-                        {error}
-                    </div>
-                )}
-
-                {/* Action Buttons */}
-                <div style={{ ...styles.card, padding: '24px', marginBottom: '24px' }}>
-                    <div style={{ ...styles.flex.start, gap: '12px', flexWrap: 'wrap' }}>
-                        <button
-                            onClick={() => setShowTaskForm(true)}
-                            style={{
-                                ...styles.button.base,
-                                ...styles.button.success
-                            }}
-                        >
-                            ➕ Создать задачу
-                        </button>
-
-                        <button
-                            onClick={fetchTasks}
-                            disabled={loading}
-                            style={{
-                                ...styles.button.base,
-                                ...styles.button.primary,
-                                opacity: loading ? 0.6 : 1
-                            }}
-                        >
-                            {loading ? '⏳ Загрузка...' : '📋 Все задачи'}
-                        </button>
-
-                        <button
-                            onClick={handleSyncTasks}
-                            disabled={loading}
-                            style={{
-                                ...styles.button.base,
-                                ...styles.button.secondary
-                            }}
-                        >
-                            🔄 Синхронизировать
-                        </button>
-                    </div>
+            {/* Statistics */}
+            <div className="stats-grid">
+                <div className="stat-card">
+                    <div className="stat-number" style={{color: '#667eea'}}>{taskStats.total}</div>
+                    <div className="stat-label">Total Tasks</div>
                 </div>
-
-                {/* Search Panel */}
-                <div style={{ ...styles.card, padding: '24px', marginBottom: '24px' }}>
-                    <h3 style={{ ...styles.subheading, marginBottom: '20px' }}>🔍 Поиск задач</h3>
-
-                    {/* Search Type Tabs */}
-                    <div style={{ marginBottom: '20px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                        {([
-                            { key: 'ALL', label: 'Все задачи', emoji: '📋' },
-                            { key: 'STATUS', label: 'По статусу', emoji: '🏷️' },
-                            { key: 'PRIORITY', label: 'По приоритету', emoji: '⚡' },
-                            { key: 'KEYWORD', label: 'По ключевому слову', emoji: '🔤' },
-                            { key: 'ADVANCED', label: 'Расширенный поиск', emoji: '🎯' }
-                        ] as const).map(({ key, label, emoji }) => (
-                            <button
-                                key={key}
-                                onClick={() => setSearchType(key)}
-                                style={{
-                                    padding: '10px 16px',
-                                    borderRadius: '10px',
-                                    border: 'none',
-                                    background: searchType === key ?
-                                        'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : '#f8fafc',
-                                    color: searchType === key ? 'white' : '#64748b',
-                                    cursor: 'pointer',
-                                    transition: 'all 0.2s ease',
-                                    fontWeight: '500',
-                                    fontSize: '14px'
-                                }}
-                            >
-                                {emoji} {label}
-                            </button>
-                        ))}
-                    </div>
-
-                    {/* Search Inputs */}
-                    <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'end' }}>
-                        {searchType === 'STATUS' && (
-                            <div style={{ minWidth: '200px' }}>
-                                <label style={{ display: 'block', marginBottom: '6px', fontWeight: '600', color: '#374151' }}>
-                                    Статус
-                                </label>
-                                <select
-                                    value={searchStatus}
-                                    onChange={(e) => setSearchStatus(e.target.value)}
-                                    style={styles.input.base}
-                                >
-                                    <option value="">Выберите статус</option>
-                                    <option value="TODO">К выполнению</option>
-                                    <option value="IN_PROGRESS">В процессе</option>
-                                    <option value="DONE">Завершено</option>
-                                    <option value="CANCELLED">Отменено</option>
-                                    <option value="OVERDUE">Просрочено</option>
-                                </select>
-                            </div>
-                        )}
-
-                        {searchType === 'PRIORITY' && (
-                            <div style={{ minWidth: '200px' }}>
-                                <label style={{ display: 'block', marginBottom: '6px', fontWeight: '600', color: '#374151' }}>
-                                    Приоритет
-                                </label>
-                                <select
-                                    value={searchPriority}
-                                    onChange={(e) => setSearchPriority(e.target.value)}
-                                    style={styles.input.base}
-                                >
-                                    <option value="">Выберите приоритет</option>
-                                    <option value="LOW">Низкий</option>
-                                    <option value="MEDIUM">Средний</option>
-                                    <option value="HIGH">Высокий</option>
-                                    <option value="URGENT">Срочный</option>
-                                </select>
-                            </div>
-                        )}
-
-                        {searchType === 'KEYWORD' && (
-                            <div style={{ minWidth: '300px' }}>
-                                <label style={{ display: 'block', marginBottom: '6px', fontWeight: '600', color: '#374151' }}>
-                                    Ключевое слово
-                                </label>
-                                <input
-                                    type="text"
-                                    placeholder="Введите ключевое слово..."
-                                    value={searchKeyword}
-                                    onChange={(e) => setSearchKeyword(e.target.value)}
-                                    style={styles.input.base}
-                                />
-                            </div>
-                        )}
-
-                        {searchType === 'ADVANCED' && (
-                            <>
-                                <div>
-                                    <label style={{ display: 'block', marginBottom: '6px', fontWeight: '600', color: '#374151' }}>
-                                        Ключевое слово
-                                    </label>
-                                    <input
-                                        type="text"
-                                        placeholder="Название или описание..."
-                                        value={searchKeyword}
-                                        onChange={(e) => setSearchKeyword(e.target.value)}
-                                        style={styles.input.base}
-                                    />
-                                </div>
-                                <div>
-                                    <label style={{ display: 'block', marginBottom: '6px', fontWeight: '600', color: '#374151' }}>
-                                        Статус
-                                    </label>
-                                    <select
-                                        value={searchStatus}
-                                        onChange={(e) => setSearchStatus(e.target.value)}
-                                        style={styles.input.base}
-                                    >
-                                        <option value="">Любой статус</option>
-                                        <option value="TODO">К выполнению</option>
-                                        <option value="IN_PROGRESS">В процессе</option>
-                                        <option value="DONE">Завершено</option>
-                                        <option value="CANCELLED">Отменено</option>
-                                        <option value="OVERDUE">Просрочено</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label style={{ display: 'block', marginBottom: '6px', fontWeight: '600', color: '#374151' }}>
-                                        Приоритет
-                                    </label>
-                                    <select
-                                        value={searchPriority}
-                                        onChange={(e) => setSearchPriority(e.target.value)}
-                                        style={styles.input.base}
-                                    >
-                                        <option value="">Любой приоритет</option>
-                                        <option value="LOW">Низкий</option>
-                                        <option value="MEDIUM">Средний</option>
-                                        <option value="HIGH">Высокий</option>
-                                        <option value="URGENT">Срочный</option>
-                                    </select>
-                                </div>
-                            </>
-                        )}
-
-                        {(searchType === 'STATUS' || searchType === 'PRIORITY' || searchType === 'KEYWORD' || searchType === 'ADVANCED') && (
-                            <button
-                                onClick={handleSearch}
-                                disabled={loading}
-                                style={{
-                                    ...styles.button.base,
-                                    ...styles.button.primary,
-                                    opacity: loading ? 0.6 : 1
-                                }}
-                            >
-                                {loading ? '⏳ Поиск...' : '🔍 Найти'}
-                            </button>
-                        )}
-
-                        {searchType !== 'ALL' && (
-                            <button
-                                onClick={() => {
-                                    setSearchKeyword('');
-                                    setSearchStatus('');
-                                    setSearchPriority('');
-                                    setSearchType('ALL');
-                                    fetchTasks();
-                                }}
-                                style={{
-                                    ...styles.button.base,
-                                    ...styles.button.secondary
-                                }}
-                            >
-                                🗑️ Сбросить
-                            </button>
-                        )}
-                    </div>
+                <div className="stat-card">
+                    <div className="stat-number" style={{color: '#667eea'}}>{taskStats.todo}</div>
+                    <div className="stat-label">To Do</div>
                 </div>
-
-                {/* Tasks Section */}
-                <div>
-                    <div style={{ ...styles.flex.between, marginBottom: '20px' }}>
-                        <h3 style={{ ...styles.subheading, margin: 0 }}>
-                            Задачи ({filteredTasks.length})
-                        </h3>
-
-                        {/* Quick Filters */}
-                        <div style={{ ...styles.flex.start, gap: '12px' }}>
-                            <select
-                                value={statusFilter}
-                                onChange={(e) => setStatusFilter(e.target.value)}
-                                style={{ ...styles.input.base, width: 'auto' }}
-                            >
-                                <option value="ALL">Все статусы</option>
-                                <option value="TODO">К выполнению</option>
-                                <option value="IN_PROGRESS">В процессе</option>
-                                <option value="DONE">Завершено</option>
-                                <option value="CANCELLED">Отменено</option>
-                                <option value="OVERDUE">Просрочено</option>
-                            </select>
-
-                            <select
-                                value={priorityFilter}
-                                onChange={(e) => setPriorityFilter(e.target.value)}
-                                style={{ ...styles.input.base, width: 'auto' }}
-                            >
-                                <option value="ALL">Все приоритеты</option>
-                                <option value="LOW">Низкий</option>
-                                <option value="MEDIUM">Средний</option>
-                                <option value="HIGH">Высокий</option>
-                                <option value="URGENT">Срочный</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    {loading ? (
-                        <div style={{ ...styles.flex.center, padding: '60px' }}>
-                            <div style={{ textAlign: 'center' }}>
-                                <div style={{ fontSize: '48px', marginBottom: '16px' }}>⏳</div>
-                                <p style={styles.body}>Загрузка задач...</p>
-                            </div>
-                        </div>
-                    ) : filteredTasks.length === 0 ? (
-                        <div style={{ ...styles.flex.center, padding: '60px' }}>
-                            <div style={{ textAlign: 'center' }}>
-                                <div style={{ fontSize: '48px', marginBottom: '16px' }}>📝</div>
-                                <h4 style={{ ...styles.subheading, marginBottom: '8px' }}>Задачи не найдены</h4>
-                                <p style={styles.body}>Создайте первую задачу или измените параметры поиска</p>
-                            </div>
-                        </div>
-                    ) : (
-                        <div style={{ ...styles.grid.container, ...styles.grid.cols2 }}>
-                            {filteredTasks.map(task => (
-                                <div
-                                    key={task.id}
-                                    style={styles.taskCard}
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.style.transform = 'translateY(-4px)';
-                                        e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.transform = 'translateY(0)';
-                                        e.currentTarget.style.boxShadow = '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)';
-                                    }}
-                                >
-                                    <div style={{ marginBottom: '16px' }}>
-                                        <h4 style={{
-                                            margin: '0 0 8px 0',
-                                            fontSize: '18px',
-                                            fontWeight: '600',
-                                            color: '#1f2937'
-                                        }}>
-                                            {task.title}
-                                        </h4>
-                                        {task.description && (
-                                            <p style={{
-                                                margin: 0,
-                                                color: '#6b7280',
-                                                fontSize: '14px',
-                                                lineHeight: '1.5'
-                                            }}>
-                                                {task.description}
-                                            </p>
-                                        )}
-                                    </div>
-
-                                    <div style={{
-                                        display: 'flex',
-                                        gap: '8px',
-                                        flexWrap: 'wrap',
-                                        marginBottom: '16px'
-                                    }}>
-                                        <span>
-                                            {getStatusText(task.status)}
-                                        </span>
-                                        <span>
-                                            {getPriorityText(task.priority)}
-                                        </span>
-                                    </div>
-
-                                    <div style={{
-                                        display: 'flex',
-                                        gap: '12px',
-                                        color: '#6b7280',
-                                        fontSize: '12px',
-                                        marginBottom: '16px'
-                                    }}>
-                                        {task.deadline && (
-                                            <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                                📅 {formatDate(task.deadline)}
-                                            </span>
-                                        )}
-                                        <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                            🕐 {formatDate(task.createdAt)}
-                                        </span>
-                                    </div>
-
-                                    <div style={{
-                                        display: 'flex',
-                                        gap: '8px',
-                                        flexWrap: 'wrap'
-                                    }}>
-                                        <select
-                                            value={task.status}
-                                            onChange={(e) => handleStatusChange(task.id, e.target.value)}
-                                            style={{
-                                                ...styles.input.base,
-                                                padding: '6px 8px',
-                                                fontSize: '12px',
-                                                flex: '1'
-                                            }}
-                                        >
-                                            <option value="TODO">К выполнению</option>
-                                            <option value="IN_PROGRESS">В процессе</option>
-                                            <option value="DONE">Завершено</option>
-                                            <option value="CANCELLED">Отменено</option>
-                                            <option value="OVERDUE">Просрочено</option>
-                                        </select>
-
-                                        <select
-                                            value={task.priority}
-                                            onChange={(e) => handlePriorityChange(task.id, e.target.value)}
-                                            style={{
-                                                ...styles.input.base,
-                                                padding: '6px 8px',
-                                                fontSize: '12px',
-                                                flex: '1'
-                                            }}
-                                        >
-                                            <option value="LOW">Низкий</option>
-                                            <option value="MEDIUM">Средний</option>
-                                            <option value="HIGH">Высокий</option>
-                                            <option value="URGENT">Срочный</option>
-                                        </select>
-
-                                        <button
-                                            onClick={() => startEditTask(task)}
-                                            style={{
-                                                ...styles.button.base,
-                                                ...styles.button.warning,
-                                                padding: '6px 12px',
-                                                fontSize: '12px'
-                                            }}
-                                        >
-                                            ✏️
-                                        </button>
-
-                                        <button
-                                            onClick={() => handleDeleteTask(task.id)}
-                                            style={{
-                                                ...styles.button.base,
-                                                ...styles.button.danger,
-                                                padding: '6px 12px',
-                                                fontSize: '12px'
-                                            }}
-                                        >
-                                            🗑️
-                                        </button>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    )}
+                <div className="stat-card">
+                    <div className="stat-number" style={{color: '#f093fb'}}>{taskStats.inProgress}</div>
+                    <div className="stat-label">In Progress</div>
+                </div>
+                <div className="stat-card">
+                    <div className="stat-number" style={{color: '#4facfe'}}>{taskStats.done}</div>
+                    <div className="stat-label">Completed</div>
+                </div>
+                <div className="stat-card">
+                    <div className="stat-number" style={{color: '#ff6b6b'}}>{taskStats.overdue}</div>
+                    <div className="stat-label">Overdue</div>
                 </div>
             </div>
 
+            {/* Actions Grid */}
+            <div className="actions-grid">
+                <button
+                    onClick={() => setShowTaskForm(true)}
+                    className="btn btn-primary"
+                >
+                    Create New Task
+                </button>
+                <button
+                    onClick={handleSyncTasks}
+                    className="btn btn-success"
+                    disabled={loading}
+                >
+                    {loading ? 'Syncing...' : 'Sync Tasks'}
+                </button>
+                <button
+                    onClick={resetSearch}
+                    className="btn btn-secondary"
+                    disabled={loading}
+                >
+                    Reset Search
+                </button>
+            </div>
+
+            {/* Search Panel */}
+            <div className="search-panel">
+                <h3 className="search-title">Search & Filter Tasks</h3>
+
+                <div className="search-tabs">
+                    <button
+                        className={`search-tab ${searchType === 'ALL' ? 'active' : ''}`}
+                        onClick={() => setSearchType('ALL')}
+                    >
+                        All Tasks
+                    </button>
+                    <button
+                        className={`search-tab ${searchType === 'STATUS' ? 'active' : ''}`}
+                        onClick={() => setSearchType('STATUS')}
+                    >
+                        By Status
+                    </button>
+                    <button
+                        className={`search-tab ${searchType === 'PRIORITY' ? 'active' : ''}`}
+                        onClick={() => setSearchType('PRIORITY')}
+                    >
+                        By Priority
+                    </button>
+                    <button
+                        className={`search-tab ${searchType === 'KEYWORD' ? 'active' : ''}`}
+                        onClick={() => setSearchType('KEYWORD')}
+                    >
+                        By Keyword
+                    </button>
+                </div>
+
+                <div className="search-controls">
+                    {searchType === 'STATUS' && (
+                        <div className="form-group">
+                            <label className="form-label">Status</label>
+                            <select
+                                value={searchStatus}
+                                onChange={(e) => setSearchStatus(e.target.value)}
+                                className="form-select"
+                            >
+                                <option value="">Select Status</option>
+                                <option value="TODO">To Do</option>
+                                <option value="IN_PROGRESS">In Progress</option>
+                                <option value="DONE">Done</option>
+                                <option value="CANCELLED">Cancelled</option>
+                                <option value="OVERDUE">Overdue</option>
+                            </select>
+                        </div>
+                    )}
+
+                    {searchType === 'PRIORITY' && (
+                        <div className="form-group">
+                            <label className="form-label">Priority</label>
+                            <select
+                                value={searchPriority}
+                                onChange={(e) => setSearchPriority(e.target.value)}
+                                className="form-select"
+                            >
+                                <option value="">Select Priority</option>
+                                <option value="LOW">Low</option>
+                                <option value="MEDIUM">Medium</option>
+                                <option value="HIGH">High</option>
+                                <option value="URGENT">Urgent</option>
+                            </select>
+                        </div>
+                    )}
+
+                    {searchType === 'KEYWORD' && (
+                        <div className="form-group">
+                            <label className="form-label">Keyword</label>
+                            <input
+                                type="text"
+                                value={searchKeyword}
+                                onChange={(e) => setSearchKeyword(e.target.value)}
+                                placeholder="Search in titles and descriptions..."
+                                className="form-input"
+                            />
+                        </div>
+                    )}
+
+                    <button
+                        onClick={handleSearch}
+                        className="btn btn-primary"
+                        disabled={loading || serviceStatus === 'OFFLINE'}
+                    >
+                        {loading ? 'Searching...' : 'Search'}
+                    </button>
+                </div>
+            </div>
+
+            {/* Quick Filters */}
+            <div className="search-panel">
+                <h3 className="search-title">Quick Filters</h3>
+                <div className="search-controls">
+                    <div className="form-group">
+                        <label className="form-label">Filter by Status</label>
+                        <select
+                            value={statusFilter}
+                            onChange={(e) => setStatusFilter(e.target.value)}
+                            className="form-select"
+                        >
+                            <option value="ALL">All Statuses</option>
+                            <option value="TODO">To Do</option>
+                            <option value="IN_PROGRESS">In Progress</option>
+                            <option value="DONE">Done</option>
+                            <option value="CANCELLED">Cancelled</option>
+                            <option value="OVERDUE">Overdue</option>
+                        </select>
+                    </div>
+                    <div className="form-group">
+                        <label className="form-label">Filter by Priority</label>
+                        <select
+                            value={priorityFilter}
+                            onChange={(e) => setPriorityFilter(e.target.value)}
+                            className="form-select"
+                        >
+                            <option value="ALL">All Priorities</option>
+                            <option value="LOW">Low</option>
+                            <option value="MEDIUM">Medium</option>
+                            <option value="HIGH">High</option>
+                            <option value="URGENT">Urgent</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            {/* Error Display */}
+            {error && (
+                <div className={`alert ${serviceStatus === 'OFFLINE' ? 'alert-warning' : 'alert-error'}`}>
+                    {error}
+                    {serviceStatus === 'OFFLINE' && (
+                        <div style={{fontSize: '0.9rem', marginTop: '8px'}}>
+                            Automatic retry in progress...
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {/* Tasks Grid */}
+            {loading ? (
+                <div className="loading">
+                    Loading tasks...
+                </div>
+            ) : filteredTasks.length === 0 ? (
+                <div className="empty-state">
+                    <h3>No tasks found</h3>
+                    <p>Create your first task or adjust your search criteria</p>
+                </div>
+            ) : (
+                <div className="tasks-grid">
+                    {filteredTasks.map((task) => (
+                        <div key={task.id} className="task-card">
+                            <div className="task-header">
+                                <h3 className="task-title">{task.title}</h3>
+                                <div className="task-meta-item">
+                                    <span
+                                        className="status-badge"
+                                        style={{ backgroundColor: getStatusColor(task.status) }}
+                                    >
+                                        {getStatusText(task.status)}
+                                    </span>
+                                </div>
+                            </div>
+
+                            {task.description && (
+                                <p className="task-description">{task.description}</p>
+                            )}
+
+                            <div className="task-meta">
+                                <div className="task-meta-item">
+                                    <strong>Priority:</strong>
+                                    <span
+                                        className="priority-badge"
+                                        style={{ backgroundColor: getPriorityColor(task.priority) }}
+                                    >
+                                        {getPriorityText(task.priority)}
+                                    </span>
+                                </div>
+
+                                {task.deadline && (
+                                    <div className="task-meta-item">
+                                        <strong>Deadline:</strong>
+                                        <span className={isOverdue(task.deadline) ? 'deadline-warning' : ''}>
+                                            {formatDate(task.deadline)}
+                                            {isOverdue(task.deadline) && ' (Overdue)'}
+                                        </span>
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="task-actions">
+                                <select
+                                    value={task.status}
+                                    onChange={(e) => handleStatusChange(task.id, e.target.value)}
+                                    className="form-select"
+                                    style={{ fontSize: '12px', padding: '6px 8px' }}
+                                    disabled={serviceStatus === 'OFFLINE'}
+                                >
+                                    <option value="TODO">To Do</option>
+                                    <option value="IN_PROGRESS">In Progress</option>
+                                    <option value="DONE">Done</option>
+                                    <option value="CANCELLED">Cancelled</option>
+                                </select>
+
+                                <select
+                                    value={task.priority}
+                                    onChange={(e) => handlePriorityChange(task.id, e.target.value)}
+                                    className="form-select"
+                                    style={{ fontSize: '12px', padding: '6px 8px' }}
+                                    disabled={serviceStatus === 'OFFLINE'}
+                                >
+                                    <option value="LOW">Low</option>
+                                    <option value="MEDIUM">Medium</option>
+                                    <option value="HIGH">High</option>
+                                    <option value="URGENT">Urgent</option>
+                                </select>
+
+                                <button
+                                    onClick={() => startEditTask(task)}
+                                    className="btn btn-secondary"
+                                    disabled={serviceStatus === 'OFFLINE'}
+                                >
+                                    Edit
+                                </button>
+                                <button
+                                    onClick={() => handleDeleteTask(task.id)}
+                                    className="btn btn-danger"
+                                    disabled={serviceStatus === 'OFFLINE'}
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
+
             {/* Create Task Modal */}
             {showTaskForm && (
-                <div style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: 'rgba(0, 0, 0, 0.5)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    zIndex: 1000,
-                    padding: '20px'
-                }}>
-                    <div style={{
-                        ...styles.card,
-                        width: '100%',
-                        maxWidth: '500px',
-                        maxHeight: '90vh',
-                        overflow: 'auto'
-                    }}>
-                        <div style={{ ...styles.flex.between, marginBottom: '24px' }}>
-                            <h3 style={{ ...styles.subheading, margin: 0 }}>Создать задачу</h3>
-                            <button
-                                onClick={() => setShowTaskForm(false)}
-                                style={{
-                                    background: 'none',
-                                    border: 'none',
-                                    fontSize: '20px',
-                                    cursor: 'pointer',
-                                    color: '#6b7280'
-                                }}
-                            >
-                                ✕
-                            </button>
-                        </div>
-
+                <div className="modal-overlay" onClick={() => setShowTaskForm(false)}>
+                    <div className="modal" onClick={(e) => e.stopPropagation()}>
+                        <h3>Create New Task</h3>
                         <form onSubmit={handleCreateTask}>
-                            <div style={{ marginBottom: '20px' }}>
-                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
-                                    Название *
-                                </label>
+                            <div className="form-group">
+                                <label className="form-label">Title *</label>
                                 <input
                                     type="text"
                                     value={taskForm.title}
                                     onChange={(e) => setTaskForm({ ...taskForm, title: e.target.value })}
-                                    style={styles.input.base}
+                                    className="form-input"
+                                    placeholder="Enter task title"
                                     required
-                                    placeholder="Введите название задачи"
                                 />
                             </div>
-
-                            <div style={{ marginBottom: '20px' }}>
-                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
-                                    Описание
-                                </label>
+                            <div className="form-group">
+                                <label className="form-label">Description</label>
                                 <textarea
                                     value={taskForm.description}
                                     onChange={(e) => setTaskForm({ ...taskForm, description: e.target.value })}
-                                    style={{ ...styles.input.base, minHeight: '100px', resize: 'vertical' }}
-                                    placeholder="Опишите детали задачи"
+                                    className="form-input"
+                                    placeholder="Enter task description"
+                                    rows={3}
                                 />
                             </div>
-
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px' }}>
-                                <div>
-                                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
-                                        Статус
-                                    </label>
-                                    <select
-                                        value={taskForm.status}
-                                        onChange={(e) => setTaskForm({ ...taskForm, status: e.target.value as Task['status'] })}
-                                        style={styles.input.base}
-                                    >
-                                        <option value="TODO">К выполнению</option>
-                                        <option value="IN_PROGRESS">В процессе</option>
-                                        <option value="DONE">Завершено</option>
-                                        <option value="CANCELLED">Отменено</option>
-                                        <option value="OVERDUE">Просрочено</option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
-                                        Приоритет
-                                    </label>
-                                    <select
-                                        value={taskForm.priority}
-                                        onChange={(e) => setTaskForm({ ...taskForm, priority: e.target.value as Task['priority'] })}
-                                        style={styles.input.base}
-                                    >
-                                        <option value="LOW">Низкий</option>
-                                        <option value="MEDIUM">Средний</option>
-                                        <option value="HIGH">Высокий</option>
-                                        <option value="URGENT">Срочный</option>
-                                    </select>
-                                </div>
+                            <div className="form-group">
+                                <label className="form-label">Status</label>
+                                <select
+                                    value={taskForm.status}
+                                    onChange={(e) => setTaskForm({ ...taskForm, status: e.target.value as Task['status'] })}
+                                    className="form-select"
+                                >
+                                    <option value="TODO">To Do</option>
+                                    <option value="IN_PROGRESS">In Progress</option>
+                                    <option value="DONE">Done</option>
+                                    <option value="CANCELLED">Cancelled</option>
+                                </select>
                             </div>
-
-                            <div style={{ marginBottom: '24px' }}>
-                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
-                                    Дедлайн
-                                </label>
+                            <div className="form-group">
+                                <label className="form-label">Priority</label>
+                                <select
+                                    value={taskForm.priority}
+                                    onChange={(e) => setTaskForm({ ...taskForm, priority: e.target.value as Task['priority'] })}
+                                    className="form-select"
+                                >
+                                    <option value="LOW">Low</option>
+                                    <option value="MEDIUM">Medium</option>
+                                    <option value="HIGH">High</option>
+                                    <option value="URGENT">Urgent</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label className="form-label">Deadline</label>
                                 <input
                                     type="datetime-local"
                                     value={taskForm.deadline}
                                     onChange={(e) => setTaskForm({ ...taskForm, deadline: e.target.value })}
-                                    style={styles.input.base}
+                                    className="form-input"
                                 />
                             </div>
-
-                            <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+                            <div className="modal-actions">
                                 <button
                                     type="button"
                                     onClick={() => setShowTaskForm(false)}
-                                    style={{
-                                        ...styles.button.base,
-                                        ...styles.button.secondary
-                                    }}
+                                    className="btn btn-secondary"
                                 >
-                                    Отмена
+                                    Cancel
                                 </button>
                                 <button
                                     type="submit"
-                                    disabled={creatingTask}
-                                    style={{
-                                        ...styles.button.base,
-                                        ...styles.button.success,
-                                        opacity: creatingTask ? 0.6 : 1
-                                    }}
+                                    className="btn btn-primary"
+                                    disabled={creatingTask || serviceStatus === 'OFFLINE'}
                                 >
-                                    {creatingTask ? '⏳ Создание...' : '✅ Создать'}
+                                    {creatingTask ? 'Creating...' : 'Create Task'}
                                 </button>
                             </div>
                         </form>
@@ -1472,140 +1769,78 @@ const App: React.FC = () => {
 
             {/* Edit Task Modal */}
             {editingTask && (
-                <div style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: 'rgba(0, 0, 0, 0.5)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    zIndex: 1000,
-                    padding: '20px'
-                }}>
-                    <div style={{
-                        ...styles.card,
-                        width: '100%',
-                        maxWidth: '500px',
-                        maxHeight: '90vh',
-                        overflow: 'auto'
-                    }}>
-                        <div style={{ ...styles.flex.between, marginBottom: '24px' }}>
-                            <h3 style={{ ...styles.subheading, margin: 0 }}>Редактировать задачу</h3>
-                            <button
-                                onClick={() => setEditingTask(null)}
-                                style={{
-                                    background: 'none',
-                                    border: 'none',
-                                    fontSize: '20px',
-                                    cursor: 'pointer',
-                                    color: '#6b7280'
-                                }}
-                            >
-                                ✕
-                            </button>
-                        </div>
-
+                <div className="modal-overlay" onClick={() => setEditingTask(null)}>
+                    <div className="modal" onClick={(e) => e.stopPropagation()}>
+                        <h3>Edit Task</h3>
                         <form onSubmit={handleUpdateTask}>
-                            <div style={{ marginBottom: '20px' }}>
-                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
-                                    Название *
-                                </label>
+                            <div className="form-group">
+                                <label className="form-label">Title *</label>
                                 <input
                                     type="text"
                                     value={editingTask.title}
                                     onChange={(e) => setEditingTask({ ...editingTask, title: e.target.value })}
-                                    style={styles.input.base}
+                                    className="form-input"
                                     required
-                                    disabled={updatingTask}
                                 />
                             </div>
-
-                            <div style={{ marginBottom: '20px' }}>
-                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
-                                    Описание
-                                </label>
+                            <div className="form-group">
+                                <label className="form-label">Description</label>
                                 <textarea
                                     value={editingTask.description}
                                     onChange={(e) => setEditingTask({ ...editingTask, description: e.target.value })}
-                                    style={{ ...styles.input.base, minHeight: '100px', resize: 'vertical' }}
-                                    disabled={updatingTask}
+                                    className="form-input"
+                                    rows={3}
                                 />
                             </div>
-
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px' }}>
-                                <div>
-                                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
-                                        Статус
-                                    </label>
-                                    <select
-                                        value={editingTask.status}
-                                        onChange={(e) => setEditingTask({ ...editingTask, status: e.target.value as Task['status'] })}
-                                        style={styles.input.base}
-                                        disabled={updatingTask}
-                                    >
-                                        <option value="TODO">К выполнению</option>
-                                        <option value="IN_PROGRESS">В процессе</option>
-                                        <option value="DONE">Завершено</option>
-                                        <option value="CANCELLED">Отменено</option>
-                                        <option value="OVERDUE">Просрочено</option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
-                                        Приоритет
-                                    </label>
-                                    <select
-                                        value={editingTask.priority}
-                                        onChange={(e) => setEditingTask({ ...editingTask, priority: e.target.value as Task['priority'] })}
-                                        style={styles.input.base}
-                                        disabled={updatingTask}
-                                    >
-                                        <option value="LOW">Низкий</option>
-                                        <option value="MEDIUM">Средний</option>
-                                        <option value="HIGH">Высокий</option>
-                                        <option value="URGENT">Срочный</option>
-                                    </select>
-                                </div>
+                            <div className="form-group">
+                                <label className="form-label">Status</label>
+                                <select
+                                    value={editingTask.status}
+                                    onChange={(e) => setEditingTask({ ...editingTask, status: e.target.value as Task['status'] })}
+                                    className="form-select"
+                                >
+                                    <option value="TODO">To Do</option>
+                                    <option value="IN_PROGRESS">In Progress</option>
+                                    <option value="DONE">Done</option>
+                                    <option value="CANCELLED">Cancelled</option>
+                                </select>
                             </div>
-
-                            <div style={{ marginBottom: '24px' }}>
-                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#374151' }}>
-                                    Дедлайн
-                                </label>
+                            <div className="form-group">
+                                <label className="form-label">Priority</label>
+                                <select
+                                    value={editingTask.priority}
+                                    onChange={(e) => setEditingTask({ ...editingTask, priority: e.target.value as Task['priority'] })}
+                                    className="form-select"
+                                >
+                                    <option value="LOW">Low</option>
+                                    <option value="MEDIUM">Medium</option>
+                                    <option value="HIGH">High</option>
+                                    <option value="URGENT">Urgent</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label className="form-label">Deadline</label>
                                 <input
                                     type="datetime-local"
                                     value={editingTask.deadline}
                                     onChange={(e) => setEditingTask({ ...editingTask, deadline: e.target.value })}
-                                    style={styles.input.base}
-                                    disabled={updatingTask}
+                                    className="form-input"
                                 />
                             </div>
-
-                            <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+                            <div className="modal-actions">
                                 <button
                                     type="button"
                                     onClick={() => setEditingTask(null)}
-                                    style={{
-                                        ...styles.button.base,
-                                        ...styles.button.secondary
-                                    }}
+                                    className="btn btn-secondary"
                                 >
-                                    Отмена
+                                    Cancel
                                 </button>
                                 <button
                                     type="submit"
-                                    disabled={updatingTask}
-                                    style={{
-                                        ...styles.button.base,
-                                        ...styles.button.primary,
-                                        opacity: updatingTask ? 0.6 : 1
-                                    }}
+                                    className="btn btn-primary"
+                                    disabled={updatingTask || serviceStatus === 'OFFLINE'}
                                 >
-                                    {updatingTask ? '⏳ Сохранение...' : '💾 Сохранить'}
+                                    {updatingTask ? 'Updating...' : 'Update Task'}
                                 </button>
                             </div>
                         </form>
