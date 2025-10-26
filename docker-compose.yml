@@ -1,0 +1,82 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_MULTIPLE_DATABASES: user_bd,task_bd,search_bd
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+    ports:
+      - "5433:5432"  # ← 5432 вместо 5433 (внутренний порт)
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-multiple-databases.sh:/docker-entrypoint-initdb.d/init-multiple-databases.sh
+
+  config-server:
+    build: ./config-server
+    container_name: config_server
+    ports:
+      - "8888:8888"
+    environment:
+      SPRING_PROFILES_ACTIVE: git
+      SPRING_CLOUD_CONFIG_SERVER_GIT_URI: https://github.com/Qvadoch/config-repo
+
+  service-discovery:
+    build: ./service-discovery
+    container_name: service_discovery
+    ports:
+      - "8761:8761"
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
+    depends_on:
+      - config-server
+
+  user-service:
+    build: ./user-service
+    container_name: user_service
+    ports:
+      - "8087:8087"
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/user_bd
+    depends_on:
+      - service-discovery
+      - postgres
+
+  task-service:
+    build: ./task-service
+    container_name: task_service
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/task_bd
+    depends_on:
+      - service-discovery
+
+  search-service:
+    build: ./search-service
+    container_name: search_service
+    ports:
+      - "8085:8085"
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/search_bd
+    depends_on:
+      - service-discovery
+
+  api-gateway:
+    build: ./api-gateway
+    container_name: api_gateway
+    ports:
+      - "8099:8099"
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
+    depends_on:
+      - service-discovery
+      - user-service
+      - task-service
+      - search-service
+
+volumes:
+  postgres_data:
